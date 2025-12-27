@@ -24,28 +24,22 @@ function getDefaultCwd(): string {
 
 async function ensureActivePlatsEditor(): Promise<vscode.TextEditor> {
   const editor = vscode.window.activeTextEditor;
-  if (!editor) {
-    throw new Error("No active editor. Open a .plats file first.");
-  }
+  if (!editor) throw new Error("No active editor. Open a .plats file first.");
   const filePath = editor.document.uri.fsPath;
-  if (!filePath.endsWith(".plats")) {
-    throw new Error("The active file is not a .plats file.");
-  }
+  if (!filePath.endsWith(".plats")) throw new Error("The active file is not a .plats file.");
   return editor;
 }
 
 function appendChannelHeader(channel: vscode.OutputChannel, title: string): void {
-  const now = new Date().toISOString();
   channel.appendLine("");
-  channel.appendLine(`=== ${title} (${now}) ===`);
+  channel.appendLine(`=== ${title} (${new Date().toISOString()}) ===`);
 }
 
-function runPlats(
-  channel: vscode.OutputChannel,
-  platsPath: string,
-  args: string[],
-  cwd: string,
-): Promise<RunResult> {
+function isSpawnNotFound(err: unknown): boolean {
+  return typeof err === "object" && err !== null && "code" in err && (err as { code?: unknown }).code === "ENOENT";
+}
+
+function runPlats(channel: vscode.OutputChannel, platsPath: string, args: string[], cwd: string): Promise<RunResult> {
   return new Promise((resolve, reject) => {
     let child;
     try {
@@ -66,29 +60,26 @@ function runPlats(
   });
 }
 
-function isSpawnNotFound(err: unknown): boolean {
-  return typeof err === "object" && err !== null && "code" in err && (err as { code?: unknown }).code === "ENOENT";
-}
-
-async function runPlatsFile(channel: vscode.OutputChannel): Promise<void> {
-  const editor = await ensureActivePlatsEditor();
-  if (editor.document.isDirty) {
-    await editor.document.save();
-  }
-
-  const filePath = editor.document.uri.fsPath;
+async function runWithErrorHandling(
+  channel: vscode.OutputChannel,
+  title: string,
+  platsArgs: string[],
+  cwd: string,
+  onSuccess?: () => void,
+): Promise<void> {
   const platsPath = getPlatsPath();
-  const cwd = getWorkingDirectoryForFile(filePath);
 
   channel.show(true);
-  appendChannelHeader(channel, `Run Plats File: ${path.basename(filePath)}`);
-  channel.appendLine(`Command: ${platsPath} run ${filePath}`);
+  appendChannelHeader(channel, title);
+  channel.appendLine(`Command: ${platsPath} ${platsArgs.join(" ")}`);
   channel.appendLine(`CWD: ${cwd}`);
 
   try {
-    const result = await runPlats(channel, platsPath, ["run", filePath], cwd);
+    const result = await runPlats(channel, platsPath, platsArgs, cwd);
     if (result.code !== 0) {
       void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
+    } else {
+      onSuccess?.();
     }
   } catch (err) {
     if (isSpawnNotFound(err)) {
@@ -125,19 +116,24 @@ function ensureProgramWrapper(text: string): string {
   return `plan doe\n${body}\n\ngedaan\n`;
 }
 
-async function runPlatsSelection(channel: vscode.OutputChannel): Promise<void> {
+async function cmdRunFile(channel: vscode.OutputChannel): Promise<void> {
   const editor = await ensureActivePlatsEditor();
+  if (editor.document.isDirty) await editor.document.save();
 
+  const filePath = editor.document.uri.fsPath;
+  const cwd = getWorkingDirectoryForFile(filePath);
+
+  await runWithErrorHandling(channel, `Run Plats File: ${path.basename(filePath)}`, ["run", filePath], cwd);
+}
+
+async function cmdRunSelection(channel: vscode.OutputChannel): Promise<void> {
+  const editor = await ensureActivePlatsEditor();
   const selection = editor.selection;
   const selectedText = editor.document.getText(selection);
   if (!selectedText || selectedText.trim().length === 0) {
     void vscode.window.showInformationMessage("Select some Plats code first.");
     return;
   }
-
-  const filePath = editor.document.uri.fsPath;
-  const cwd = getWorkingDirectoryForFile(filePath);
-  const platsPath = getPlatsPath();
 
   const normalized = normalizeSelectionText(selectedText);
   const wrapped = ensureProgramWrapper(normalized);
@@ -146,27 +142,16 @@ async function runPlatsSelection(channel: vscode.OutputChannel): Promise<void> {
   const tmpFile = path.join(os.tmpdir(), `vlaamscodex-selection-${Date.now()}-${Math.random().toString(16).slice(2)}.plats`);
   await fs.writeFile(tmpFile, withCookie, { encoding: "utf8" });
 
-  channel.show(true);
-  appendChannelHeader(channel, `Run Selection as Plats: ${path.basename(filePath)}`);
-  channel.appendLine(`Temp file: ${tmpFile}`);
-  channel.appendLine(`Command: ${platsPath} run ${tmpFile}`);
-  channel.appendLine(`CWD: ${cwd}`);
+  const filePath = editor.document.uri.fsPath;
+  const cwd = getWorkingDirectoryForFile(filePath);
 
   try {
-    const result = await runPlats(channel, platsPath, ["run", tmpFile], cwd);
-    if (result.code !== 0) {
-      void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
-    }
-  } catch (err) {
-    if (isSpawnNotFound(err)) {
-      void vscode.window.showErrorMessage(
-        "Could not find the 'plats' executable. Install VlaamsCodex (pipx/pip) or set vlaamscodex.platsPath in Settings.",
-      );
-    } else {
-      void vscode.window.showErrorMessage("Failed to run selection. See Output: VlaamsCodex.");
-    }
-    channel.appendLine("");
-    channel.appendLine(`Error: ${String(err)}`);
+    await runWithErrorHandling(
+      channel,
+      `Run Selection as Plats: ${path.basename(filePath)}`,
+      ["run", tmpFile],
+      cwd,
+    );
   } finally {
     try {
       await fs.unlink(tmpFile);
@@ -176,47 +161,20 @@ async function runPlatsSelection(channel: vscode.OutputChannel): Promise<void> {
   }
 }
 
-async function showGeneratedPython(channel: vscode.OutputChannel): Promise<void> {
+async function cmdShowPython(channel: vscode.OutputChannel): Promise<void> {
   const editor = await ensureActivePlatsEditor();
-  if (editor.document.isDirty) {
-    await editor.document.save();
-  }
+  if (editor.document.isDirty) await editor.document.save();
 
   const filePath = editor.document.uri.fsPath;
-  const platsPath = getPlatsPath();
   const cwd = getWorkingDirectoryForFile(filePath);
-
-  channel.show(true);
-  appendChannelHeader(channel, `Show Generated Python: ${path.basename(filePath)}`);
-  channel.appendLine(`Command: ${platsPath} show-python ${filePath}`);
-  channel.appendLine(`CWD: ${cwd}`);
-
-  try {
-    const result = await runPlats(channel, platsPath, ["show-python", filePath], cwd);
-    if (result.code !== 0) {
-      void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
-    }
-  } catch (err) {
-    if (isSpawnNotFound(err)) {
-      void vscode.window.showErrorMessage(
-        "Could not find the 'plats' executable. Install VlaamsCodex (pipx/pip) or set vlaamscodex.platsPath in Settings.",
-      );
-    } else {
-      void vscode.window.showErrorMessage("Failed to show generated Python. See Output: VlaamsCodex.");
-    }
-    channel.appendLine("");
-    channel.appendLine(`Error: ${String(err)}`);
-  }
+  await runWithErrorHandling(channel, `Show Generated Python: ${path.basename(filePath)}`, ["show-python", filePath], cwd);
 }
 
-async function buildPlatsToPythonFile(channel: vscode.OutputChannel): Promise<void> {
+async function cmdBuildPython(channel: vscode.OutputChannel): Promise<void> {
   const editor = await ensureActivePlatsEditor();
-  if (editor.document.isDirty) {
-    await editor.document.save();
-  }
+  if (editor.document.isDirty) await editor.document.save();
 
   const filePath = editor.document.uri.fsPath;
-  const platsPath = getPlatsPath();
   const cwd = getWorkingDirectoryForFile(filePath);
 
   const defaultOut = filePath.replace(/\.plats$/i, ".py");
@@ -227,83 +185,21 @@ async function buildPlatsToPythonFile(channel: vscode.OutputChannel): Promise<vo
   });
   if (!outUri) return;
 
-  channel.show(true);
-  appendChannelHeader(channel, `Build Plats to Python: ${path.basename(filePath)}`);
-  channel.appendLine(`Command: ${platsPath} build ${filePath} --out ${outUri.fsPath}`);
-  channel.appendLine(`CWD: ${cwd}`);
-
-  try {
-    const result = await runPlats(channel, platsPath, ["build", filePath, "--out", outUri.fsPath], cwd);
-    if (result.code !== 0) {
-      void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
-    } else {
-      void vscode.window.showInformationMessage(`Built Python file: ${outUri.fsPath}`);
-    }
-  } catch (err) {
-    if (isSpawnNotFound(err)) {
-      void vscode.window.showErrorMessage(
-        "Could not find the 'plats' executable. Install VlaamsCodex (pipx/pip) or set vlaamscodex.platsPath in Settings.",
-      );
-    } else {
-      void vscode.window.showErrorMessage("Failed to build Python file. See Output: VlaamsCodex.");
-    }
-    channel.appendLine("");
-    channel.appendLine(`Error: ${String(err)}`);
-  }
+  await runWithErrorHandling(
+    channel,
+    `Build Plats to Python: ${path.basename(filePath)}`,
+    ["build", filePath, "--out", outUri.fsPath],
+    cwd,
+    () => void vscode.window.showInformationMessage(`Built Python file: ${outUri.fsPath}`),
+  );
 }
 
-async function showCliHelp(channel: vscode.OutputChannel): Promise<void> {
-  const platsPath = getPlatsPath();
-  const cwd = getDefaultCwd();
-
-  channel.show(true);
-  appendChannelHeader(channel, "Plats CLI Help");
-  channel.appendLine(`Command: ${platsPath} help`);
-  channel.appendLine(`CWD: ${cwd}`);
-
-  try {
-    const result = await runPlats(channel, platsPath, ["help"], cwd);
-    if (result.code !== 0) {
-      void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
-    }
-  } catch (err) {
-    if (isSpawnNotFound(err)) {
-      void vscode.window.showErrorMessage(
-        "Could not find the 'plats' executable. Install VlaamsCodex (pipx/pip) or set vlaamscodex.platsPath in Settings.",
-      );
-    } else {
-      void vscode.window.showErrorMessage("Failed to show CLI help. See Output: VlaamsCodex.");
-    }
-    channel.appendLine("");
-    channel.appendLine(`Error: ${String(err)}`);
-  }
+async function cmdHelp(channel: vscode.OutputChannel): Promise<void> {
+  await runWithErrorHandling(channel, "Plats CLI Help", ["help"], getDefaultCwd());
 }
 
-async function showCliVersion(channel: vscode.OutputChannel): Promise<void> {
-  const platsPath = getPlatsPath();
-  const cwd = getDefaultCwd();
-
-  channel.show(true);
-  appendChannelHeader(channel, "Plats CLI Version");
-  channel.appendLine(`Command: ${platsPath} version`);
-  channel.appendLine(`CWD: ${cwd}`);
-
-  try {
-    const result = await runPlats(channel, platsPath, ["version"], cwd);
-    if (result.code !== 0) {
-      void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
-    }
-  } catch (err) {
-    if (isSpawnNotFound(err)) {
-      void vscode.window.showErrorMessage(
-        "Could not find the 'plats' executable. Install VlaamsCodex (pipx/pip) or set vlaamscodex.platsPath in Settings.",
-      );
-    } else {
-      void vscode.window.showErrorMessage("Failed to show CLI version. See Output: VlaamsCodex.");
-    }
-    channel.appendLine("");
-    channel.appendLine(`Error: ${String(err)}`);
-  }
+async function cmdVersion(channel: vscode.OutputChannel): Promise<void> {
+  await runWithErrorHandling(channel, "Plats CLI Version", ["version"], getDefaultCwd());
 }
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -311,15 +207,16 @@ export function activate(context: vscode.ExtensionContext): void {
 
   context.subscriptions.push(
     channel,
-    vscode.commands.registerCommand("vlaamscodex.runFile", () => runPlatsFile(channel)),
-    vscode.commands.registerCommand("vlaamscodex.runSelection", () => runPlatsSelection(channel)),
-    vscode.commands.registerCommand("vlaamscodex.showPython", () => showGeneratedPython(channel)),
-    vscode.commands.registerCommand("vlaamscodex.buildPython", () => buildPlatsToPythonFile(channel)),
-    vscode.commands.registerCommand("vlaamscodex.help", () => showCliHelp(channel)),
-    vscode.commands.registerCommand("vlaamscodex.version", () => showCliVersion(channel)),
+    vscode.commands.registerCommand("vlaamscodex.runFile", () => cmdRunFile(channel)),
+    vscode.commands.registerCommand("vlaamscodex.runSelection", () => cmdRunSelection(channel)),
+    vscode.commands.registerCommand("vlaamscodex.showPython", () => cmdShowPython(channel)),
+    vscode.commands.registerCommand("vlaamscodex.buildPython", () => cmdBuildPython(channel)),
+    vscode.commands.registerCommand("vlaamscodex.help", () => cmdHelp(channel)),
+    vscode.commands.registerCommand("vlaamscodex.version", () => cmdVersion(channel)),
   );
 }
 
 export function deactivate(): void {
   // no-op
 }
+

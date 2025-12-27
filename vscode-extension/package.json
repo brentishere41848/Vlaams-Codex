@@ -13,10 +13,7 @@
   "engines": {
     "vscode": "^1.85.0"
   },
-  "categories": [
-    "Programming Languages",
-    "Other"
-  ],
+  "categories": ["Programming Languages", "Other"],
   "icon": "media/icon.png",
   "main": "./out/extension.js",
   "activationEvents": [
@@ -32,13 +29,8 @@
     "languages": [
       {
         "id": "platskript",
-        "aliases": [
-          "Platskript",
-          "VlaamsCodex Platskript"
-        ],
-        "extensions": [
-          ".plats"
-        ],
+        "aliases": ["Platskript", "VlaamsCodex Platskript"],
+        "extensions": [".plats"],
         "configuration": "./language-configuration.json"
       }
     ],
@@ -102,3 +94,4 @@
     "typescript": "^5.3.3"
   }
 }
+

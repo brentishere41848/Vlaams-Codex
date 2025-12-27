@@ -5,7 +5,6 @@ tsconfig.json
 *.map
 *.ts
 
-# Keep compiled output + extension assets
 !out/**
 !media/**
 !syntaxes/**

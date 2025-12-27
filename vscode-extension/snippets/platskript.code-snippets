@@ -2,12 +2,7 @@
   "Program skeleton": {
     "prefix": "plats-program",
     "description": "Program skeleton (plan doe ... gedaan)",
-    "body": [
-      "# coding: vlaamsplats",
-      "plan doe",
-      "  $0",
-      "gedaan"
-    ]
+    "body": ["# coding: vlaamsplats", "plan doe", "  $0", "gedaan"]
   },
   "Print (klap)": {
     "prefix": "klap",
@@ -38,31 +33,17 @@
   "If / Else": {
     "prefix": "plats-if",
     "description": "If/else skeleton (as ... dan ... anders ...)",
-    "body": [
-      "as ${1:da voorwaarde} dan",
-      "  ${0:klap tekst ok amen}",
-      "anders",
-      "  klap tekst nope amen",
-      "amen"
-    ]
+    "body": ["as ${1:da voorwaarde} dan", "  ${0:klap tekst ok amen}", "anders", "  klap tekst nope amen", "amen"]
   },
   "Loop (zolange)": {
     "prefix": "plats-while",
     "description": "While loop skeleton (zolange ... doe ... gedaan)",
-    "body": [
-      "zolange ${1:da voorwaarde} doe",
-      "  ${0:klap tekst bezig amen}",
-      "gedaan"
-    ]
+    "body": ["zolange ${1:da voorwaarde} doe", "  ${0:klap tekst bezig amen}", "gedaan"]
   },
   "Loop (veur)": {
     "prefix": "plats-for",
     "description": "For loop skeleton (veur ... van ... tot ... doe ... gedaan)",
-    "body": [
-      "veur ${1:i} van ${2:getal 0} tot ${3:getal 10} doe",
-      "  ${0:klap da ${1:i} amen}",
-      "gedaan"
-    ]
+    "body": ["veur ${1:i} van ${2:getal 0} tot ${3:getal 10} doe", "  ${0:klap da ${1:i} amen}", "gedaan"]
   }
 }
 

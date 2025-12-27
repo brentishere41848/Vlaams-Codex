@@ -24,16 +24,6 @@
   "indentationRules": {
     "increaseIndentPattern": ".*\\bdoe\\s*$",
     "decreaseIndentPattern": "^\\s*gedaan\\b.*$"
-  },
-  "onEnterRules": [
-    {
-      "beforeText": ".*\\bdoe\\s*$",
-      "action": { "indentAction": "Indent" }
-    },
-    {
-      "beforeText": "^\\s*gedaan\\b.*$",
-      "action": { "indentAction": "Outdent" }
-    }
-  ]
+  }
 }
 
