@@ -7,6 +7,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6] - 2025-12-27
+
+### Added
+
+- Flemish command aliases for all CLI commands! 🇧🇪
+  - `plats loop` (= run) - Voer een programma uut
+  - `plats bouw` (= build) - Compileer na Python
+  - `plats toon` (= show-python) - Toon de Python code
+  - `plats versie` (= version) - Toon versie
+  - `plats haalp` (= help) - Already added in v0.1.5
+- Both English and Flemish commands documented in help output
+- Command alias translation system in CLI
+
+### Changed
+
+- Updated help messages to prominently show both language options
+- Flemish commands work exactly like their English counterparts
+
+## [0.1.5] - 2025-12-27
+
+### Added
+
+- `plats haalp` command - Help in Flemish dialect! 🇧🇪
+- Language reference included in Flemish help output
+- Fun tagline: "'t Es simpel, 't es plansen, 't es Vlaams!"
+
+## [0.1.4] - 2025-12-27
+
+### Added
+
+- `plats help` command with detailed usage information
+- `plats version` command to display version
+- `plats -v` and `plats --version` flags
+- Version info displayed in help output
+
+### Changed
+
+- Improved CLI help messages and descriptions
+- Better argument parser with epilog documentation link
+
+## [0.1.3] - 2025-12-27
+
+### Added
+
+- Comprehensive PyPI metadata for better discoverability
+- Project URLs (Homepage, Documentation, Repository, Changelog, Bug Tracker)
+- Keywords for search optimization
+- Full classifier taxonomy (Development Status, Audience, Topics, Languages)
+- Maintainer information
+- Python 3.13 support declared
+
+### Changed
+
+- Enhanced package description for clarity
+- Improved project categorization on PyPI
+
+### Fixed
+
+- Removed deprecated License classifier (now using PEP 639 license expression)
+
+## [0.1.1] - 2025-12-27
+
+### Added
+
+- GitHub Packages support with release assets
+- Improved CI/CD workflow with parallel jobs
+- Build artifacts attached to GitHub releases
+
+### Changed
+
+- Publish workflow now uploads wheel and sdist to releases
+
 ## [0.1.0] - 2024-12-27
 
 ### Added
@@ -37,5 +109,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Space literal: `spatie`
 - Operators: `plakt`, `derbij`, `deraf`, `keer`, `gedeeld`, `isgelijk`, `isniegelijk`, `isgroterdan`, `iskleinerdan`, `enook`, `ofwel`, `nie`
 
-[Unreleased]: https://github.com/vlaamscodex/vlaamscodex/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/vlaamscodex/vlaamscodex/releases/tag/v0.1.0
+[Unreleased]: https://github.com/anubissbe/Vlaamse-Codex/compare/v0.1.6...HEAD
+[0.1.6]: https://github.com/anubissbe/Vlaamse-Codex/compare/v0.1.5...v0.1.6
+[0.1.5]: https://github.com/anubissbe/Vlaamse-Codex/compare/v0.1.4...v0.1.5
+[0.1.4]: https://github.com/anubissbe/Vlaamse-Codex/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/anubissbe/Vlaamse-Codex/compare/v0.1.1...v0.1.3
+[0.1.1]: https://github.com/anubissbe/Vlaamse-Codex/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/anubissbe/Vlaamse-Codex/releases/tag/v0.1.0
