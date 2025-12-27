@@ -24,7 +24,9 @@
     "onCommand:vlaamscodex.runFile",
     "onCommand:vlaamscodex.runSelection",
     "onCommand:vlaamscodex.showPython",
-    "onCommand:vlaamscodex.buildPython"
+    "onCommand:vlaamscodex.buildPython",
+    "onCommand:vlaamscodex.help",
+    "onCommand:vlaamscodex.version"
   ],
   "contributes": {
     "languages": [
@@ -69,6 +71,14 @@
       {
         "command": "vlaamscodex.buildPython",
         "title": "VlaamsCodex: Build Plats to Python File"
+      },
+      {
+        "command": "vlaamscodex.help",
+        "title": "VlaamsCodex: Show CLI Help"
+      },
+      {
+        "command": "vlaamscodex.version",
+        "title": "VlaamsCodex: Show CLI Version"
       }
     ],
     "configuration": {

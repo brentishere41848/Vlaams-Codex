@@ -15,8 +15,7 @@ import sys
 from pathlib import Path
 
 from .compiler import compile_plats
-
-__version__ = "0.1.6"
+from . import __version__
 
 # Command aliases: Flemish -> English
 COMMAND_ALIASES = {

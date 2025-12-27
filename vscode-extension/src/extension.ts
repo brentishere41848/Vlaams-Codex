@@ -16,6 +16,12 @@ function getWorkingDirectoryForFile(filePath: string): string {
   return path.dirname(filePath);
 }
 
+function getDefaultCwd(): string {
+  const folder = vscode.workspace.workspaceFolders?.[0];
+  if (folder) return folder.uri.fsPath;
+  return os.homedir();
+}
+
 async function ensureActivePlatsEditor(): Promise<vscode.TextEditor> {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
@@ -246,6 +252,60 @@ async function buildPlatsToPythonFile(channel: vscode.OutputChannel): Promise<vo
   }
 }
 
+async function showCliHelp(channel: vscode.OutputChannel): Promise<void> {
+  const platsPath = getPlatsPath();
+  const cwd = getDefaultCwd();
+
+  channel.show(true);
+  appendChannelHeader(channel, "Plats CLI Help");
+  channel.appendLine(`Command: ${platsPath} help`);
+  channel.appendLine(`CWD: ${cwd}`);
+
+  try {
+    const result = await runPlats(channel, platsPath, ["help"], cwd);
+    if (result.code !== 0) {
+      void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
+    }
+  } catch (err) {
+    if (isSpawnNotFound(err)) {
+      void vscode.window.showErrorMessage(
+        "Could not find the 'plats' executable. Install VlaamsCodex (pipx/pip) or set vlaamscodex.platsPath in Settings.",
+      );
+    } else {
+      void vscode.window.showErrorMessage("Failed to show CLI help. See Output: VlaamsCodex.");
+    }
+    channel.appendLine("");
+    channel.appendLine(`Error: ${String(err)}`);
+  }
+}
+
+async function showCliVersion(channel: vscode.OutputChannel): Promise<void> {
+  const platsPath = getPlatsPath();
+  const cwd = getDefaultCwd();
+
+  channel.show(true);
+  appendChannelHeader(channel, "Plats CLI Version");
+  channel.appendLine(`Command: ${platsPath} version`);
+  channel.appendLine(`CWD: ${cwd}`);
+
+  try {
+    const result = await runPlats(channel, platsPath, ["version"], cwd);
+    if (result.code !== 0) {
+      void vscode.window.showErrorMessage(`VlaamsCodex failed (exit code ${result.code ?? "unknown"}). See Output: VlaamsCodex.`);
+    }
+  } catch (err) {
+    if (isSpawnNotFound(err)) {
+      void vscode.window.showErrorMessage(
+        "Could not find the 'plats' executable. Install VlaamsCodex (pipx/pip) or set vlaamscodex.platsPath in Settings.",
+      );
+    } else {
+      void vscode.window.showErrorMessage("Failed to show CLI version. See Output: VlaamsCodex.");
+    }
+    channel.appendLine("");
+    channel.appendLine(`Error: ${String(err)}`);
+  }
+}
+
 export function activate(context: vscode.ExtensionContext): void {
   const channel = vscode.window.createOutputChannel("VlaamsCodex");
 
@@ -255,6 +315,8 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand("vlaamscodex.runSelection", () => runPlatsSelection(channel)),
     vscode.commands.registerCommand("vlaamscodex.showPython", () => showGeneratedPython(channel)),
     vscode.commands.registerCommand("vlaamscodex.buildPython", () => buildPlatsToPythonFile(channel)),
+    vscode.commands.registerCommand("vlaamscodex.help", () => showCliHelp(channel)),
+    vscode.commands.registerCommand("vlaamscodex.version", () => showCliVersion(channel)),
   );
 }
 

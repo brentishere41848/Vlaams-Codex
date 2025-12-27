@@ -12,6 +12,8 @@ Syntax highlighting, snippets, and run commands for **Platskript** (`.plats`), t
   - **VlaamsCodex: Run Selection as Plats** (`vlaamscodex.runSelection`)
   - **VlaamsCodex: Show Generated Python** (`vlaamscodex.showPython`)
   - **VlaamsCodex: Build Plats to Python File** (`vlaamscodex.buildPython`)
+  - **VlaamsCodex: Show CLI Help** (`vlaamscodex.help`)
+  - **VlaamsCodex: Show CLI Version** (`vlaamscodex.version`)
 - Output is streamed to a dedicated Output Channel: **VlaamsCodex**
 
 ## Requirements
@@ -68,6 +70,15 @@ Run **VlaamsCodex: Build Plats to Python File** to execute:
 
 ```text
 plats build <current-file> --out <selected-output-path>
+```
+
+### Show CLI help / version
+
+Run **VlaamsCodex: Show CLI Help** or **VlaamsCodex: Show CLI Version** to execute:
+
+```text
+plats help
+plats version
 ```
 
 ## Install from VSIX
