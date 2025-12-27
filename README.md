@@ -1,8 +1,9 @@
 # VlaamsCodex
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![PyPI version](https://img.shields.io/pypi/v/vlaamscodex.svg)](https://pypi.org/project/vlaamscodex/)
+[![Python 3.10+](https://img.shields.io/pypi/pyversions/vlaamscodex.svg)](https://pypi.org/project/vlaamscodex/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-orange.svg)](CHANGELOG.md)
+[![CI](https://github.com/anubissbe/Vlaamse-Codex/actions/workflows/ci.yml/badge.svg)](https://github.com/anubissbe/Vlaamse-Codex/actions/workflows/ci.yml)
 
 A transpiler toolchain for **Platskript** (`.plats`), a parody programming language that uses Flemish dialect keywords. VlaamsCodex compiles Platskript source code to Python and executes it.
 
@@ -175,6 +176,7 @@ docs/                # Technical documentation
 - [Packaging & Installation](docs/03_packaging_and_install.md)
 - [Language Specification](docs/04_language_spec.md)
 - [Security Notes](docs/05_security_and_safety.md)
+- [User Guide](docs/06_user_guide.md)
 
 ## Contributing
 
