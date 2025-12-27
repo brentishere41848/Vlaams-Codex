@@ -1,0 +1,31 @@
+# Example pyproject.toml for packaging VlaamsCodex / Platskript
+#
+# This is a *template*. You will likely need to adjust it depending on your build tool.
+# See docs/03_packaging_and_install.md for details and caveats.
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vlaamscodex"
+version = "0.1.0"
+description = "Platskript (Flemish dialect parody language) - toy reference"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "YOU"}]
+
+[project.scripts]
+plats = "vlaamscodex.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# Install the startup hook into site-packages so `python script.plats` can work
+# (requires normal Python startup where `site` runs).
+[tool.setuptools.data-files]
+"" = ["data/vlaamscodex_autoload.pth"]
