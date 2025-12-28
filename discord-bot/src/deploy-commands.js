@@ -28,6 +28,11 @@ const commands = [
 
   new SlashCommandBuilder().setName("links").setDescription("Toon alle vaste links.").setDMPermission(false),
 
+  new SlashCommandBuilder()
+    .setName("stuurlinks")
+    .setDescription("Stuur de links in schoon plat Vlaams.")
+    .setDMPermission(false),
+
   new SlashCommandBuilder().setName("changelog").setDescription("Toon de laatste GitHub release.").setDMPermission(false),
 
   new SlashCommandBuilder()

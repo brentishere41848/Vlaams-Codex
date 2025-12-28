@@ -18,6 +18,7 @@ dotenv.config({ path: path.join(PROJECT_ROOT, ".env") });
 
 const STATE_PATH = path.join(__dirname, "state.json");
 const FIXED_CHANGELOG_CHANNEL_ID = "1454574317873397771";
+const X_LINK = "https://x.com/vlaamscodex";
 
 const FIXED_LINKS = [
   "https://marketplace.visualstudio.com/items?itemName=PlatsVlaamseCodex.vlaamscodex-platskript",
@@ -200,6 +201,23 @@ function formatManualAnnouncementContent(text, { mentionEveryone }) {
   return `${prefix}${textFinal}\n\n${footer}`;
 }
 
+function formatStuurlinksMessage() {
+  const lines = [
+    "Awel se, pak u nen koffie en zet u efkes: hier zenne de VlaamsCodex-links waar ge mee kunt stoefen.",
+    "",
+    `- VS Code Marketplace: <${FIXED_LINKS[0]}>`,
+    `- Open VSX: <${FIXED_LINKS[1]}>`,
+    `- GitHub: <${FIXED_LINKS[2]}>`,
+    `- NPM: <${FIXED_LINKS[3]}>`,
+    `- PyPI (ja, da’s nen rare /manage/ link, mo ’t moet zo): <${FIXED_LINKS[4]}>`,
+    `- Docs: <${FIXED_LINKS[5]}>`,
+    `- X (Twitter, hoe ge ’t ook noemt): <${X_LINK}>`,
+    "",
+    "En nu: goa gij wa plansen of wa? ’t Es tijd da ge iets schoons in mekaar steekt."
+  ];
+  return lines.join("\n");
+}
+
 const DISCORD_TOKEN = requiredEnv("DISCORD_TOKEN");
 const CLIENT_ID = String(process.env.CLIENT_ID || "").trim();
 const GUILD_ID = String(process.env.GUILD_ID || "1454570813784199181").trim();
@@ -216,6 +234,11 @@ function buildGuildCommands() {
     new SlashCommandBuilder().setName("ping").setDescription("Check of de bot leeft.").setDMPermission(false),
 
     new SlashCommandBuilder().setName("links").setDescription("Toon alle vaste links.").setDMPermission(false),
+
+    new SlashCommandBuilder()
+      .setName("stuurlinks")
+      .setDescription("Stuur de links in schoon plat Vlaams.")
+      .setDMPermission(false),
 
     new SlashCommandBuilder().setName("changelog").setDescription("Toon de laatste GitHub release.").setDMPermission(false),
 
@@ -427,13 +450,22 @@ client.on("interactionCreate", async (interaction) => {
     const isAdmin = Boolean(interaction.memberPermissions?.has?.(PermissionFlagsBits.ManageGuild));
 
     if (interaction.commandName === "ping") {
-      await interaction.reply({ content: "Wa is’t er, zeg?", ephemeral: true, allowedMentions: { parse: [] } });
+      await interaction.reply({
+        content: "Awel ja, ik leef nog. Wa is’t er? Zedde gij mij aan ’t testen ofwa? 😄",
+        ephemeral: true,
+        allowedMentions: { parse: [] }
+      });
       return;
     }
 
     if (interaction.commandName === "links") {
       const lines = FIXED_LINKS.map((u) => `<${u}>`).join("\n");
       await interaction.reply({ content: lines, ephemeral: true, allowedMentions: { parse: [] } });
+      return;
+    }
+
+    if (interaction.commandName === "stuurlinks") {
+      await interaction.reply({ content: formatStuurlinksMessage(), ephemeral: true, allowedMentions: { parse: [] } });
       return;
     }
 
