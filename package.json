@@ -1,6 +1,6 @@
 {
   "name": "vlaamscodex",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Platskript transpiler toolchain (Multi-Vlaams dialect) packaged for npm as a thin wrapper around the Python implementation.",
   "license": "MIT",
   "repository": {
@@ -42,8 +42,5 @@
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
-  ],
-  "dependencies": {
-    "vlaamscodex": "^0.2.0"
-  }
+  ]
 }

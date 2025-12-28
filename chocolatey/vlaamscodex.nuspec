@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>vlaamscodex</id>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <title>VlaamsCodex (Platskript CLI)</title>
     <authors>VlaamsCodex contributors</authors>
     <projectUrl>https://github.com/anubissbe/Vlaamse-Codex</projectUrl>
@@ -24,4 +24,3 @@ containing the Python implementation.
     </dependencies>
   </metadata>
 </package>
-

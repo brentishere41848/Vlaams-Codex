@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2025-12-28
+
+### Added
+
+- npm package wrapper for installing/running `plats` via Node.js.
+- Chocolatey packaging skeleton (local pack/install workflow).
+- VS Code extension improvements: run/build/check in the integrated terminal + optional auto-bootstrap Python venv.
+
 ## [0.2.0] - 2025-12-28
 
 ### Added - Multi-Vlaams Editie! 🇧🇪
@@ -191,7 +199,8 @@ Full command aliases for 7 Flemish regions:
 - Space literal: `spatie`
 - Operators: `plakt`, `derbij`, `deraf`, `keer`, `gedeeld`, `isgelijk`, `isniegelijk`, `isgroterdan`, `iskleinerdan`, `enook`, `ofwel`, `nie`
 
-[Unreleased]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.7...v0.2.0
 [0.1.7]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.5...v0.1.6
