@@ -1,8 +1,10 @@
 name: Publish Package
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch: {}
 
 jobs:
   build:
@@ -49,7 +51,7 @@ jobs:
 
       - name: Set extension version from release tag
         env:
-          TAG_NAME: ${{ github.event.release.tag_name }}
+          TAG_NAME: ${{ github.ref_name }}
         run: |
           VERSION="${TAG_NAME#v}"
           echo "EXT_VERSION=$VERSION" >> "$GITHUB_ENV"
@@ -118,6 +120,41 @@ jobs:
       contents: write
 
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Extract release notes from CHANGELOG.md
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          tag = os.environ["TAG_NAME"].strip()
+          version = tag[1:] if tag.startswith("v") else tag
+
+          changelog = Path("CHANGELOG.md").read_text(encoding="utf-8")
+          header = re.compile(rf"^## \[{re.escape(version)}\] - .*$", re.M)
+          m = header.search(changelog)
+          if not m:
+              raise SystemExit(f"Could not find section for version {version} in CHANGELOG.md")
+
+          start = m.start()
+          rest = changelog[m.end():]
+          next_header = re.search(r"^## \[\d+\.\d+\.\d+\] - ", rest, flags=re.M)
+          end = m.end() + (next_header.start() if next_header else len(rest))
+
+          section = changelog[start:end].strip() + "\n"
+          Path("release_notes.md").write_text(section, encoding="utf-8")
+          print("Wrote release_notes.md for", tag)
+          PY
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -133,6 +170,9 @@ jobs:
       - name: Upload release assets
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body_path: release_notes.md
           files: |
             dist/*.whl
             dist/*.tar.gz
