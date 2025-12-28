@@ -2,7 +2,7 @@
   "name": "vlaamscodex-platskript",
   "displayName": "Vlaams Codex – Platskript",
   "description": "Syntax highlighting and tools for Platskript (.plats), the Vlaams Codex language.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "PlatsVlaamseCodex",
   "license": "MIT",
   "repository": {

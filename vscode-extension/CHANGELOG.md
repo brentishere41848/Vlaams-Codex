@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Added "Debug Plats File" (compiles to line-preserving Python and launches the Python debugger).
+
 ## 0.2.1
 
 - Run/build/check commands now default to an integrated terminal (Tasks).
