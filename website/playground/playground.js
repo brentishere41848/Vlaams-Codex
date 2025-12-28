@@ -3,7 +3,7 @@
 const PYODIDE_VERSION = 'v0.26.2';
 const VLAAMSCODEX_VERSION = '0.2.5';
 const VLAAMSCODEX_WHEEL_PATH = `../assets/py/vlaamscodex-${VLAAMSCODEX_VERSION}-py3-none-any.whl`;
-const VLAAMSCODEX_WHEEL_CACHE_BUST = '2025-12-28-04';
+const VLAAMSCODEX_WHEEL_CACHE_BUST = '2025-12-28-05';
 
 const elements = {
     editor: document.getElementById('editor'),
