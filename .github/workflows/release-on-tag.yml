@@ -19,14 +19,37 @@ jobs:
           TAG_NAME: ${{ github.ref_name }}
         run: |
           VERSION="${TAG_NAME#v}"
-          awk -v ver="$VERSION" '
-            BEGIN{in=0}
-            {
-              if ($0 ~ "^## \\[" ver "\\]") {in=1}
-              else if (in && $0 ~ "^## \\[") {exit}
-              if (in) print
-            }
-          ' CHANGELOG.md > release-body.md
+          python - <<'PY'
+          import os, re, sys
+
+          tag = os.environ.get("TAG_NAME", "").strip()
+          if not tag:
+            print("TAG_NAME ontbreekt.", file=sys.stderr)
+            raise SystemExit(1)
+
+          version = tag[1:] if tag.startswith("v") else tag
+          changelog = open("CHANGELOG.md", "r", encoding="utf-8").read().splitlines()
+
+          start = None
+          header_re = re.compile(rf"^## \\[{re.escape(version)}\\]\\b")
+          for i, line in enumerate(changelog):
+            if header_re.match(line):
+              start = i
+              break
+
+          if start is None:
+            print(f"Kon geen CHANGELOG sectie vinden voor versie {version} (tag: {tag}).", file=sys.stderr)
+            raise SystemExit(1)
+
+          out = []
+          for line in changelog[start:]:
+            if out and line.startswith("## ["):
+              break
+            out.append(line)
+
+          body = "\n".join(out).strip() + "\n"
+          open("release-body.md", "w", encoding="utf-8").write(body)
+          PY
 
       - name: Create release from tag
         uses: softprops/action-gh-release@v1
