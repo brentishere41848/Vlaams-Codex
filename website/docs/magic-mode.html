@@ -221,7 +221,7 @@
 <body>
     <div id="loadingScreen" class="loading-screen">
         <img src="../icon.png" alt="Vlaams Codex Logo" class="loading-logo">
-        <p class="loading-text">'t Es simpel, 't es plansen, 't es Vlaams!</p>
+        <p class="loading-text" data-lang="tagline">'t Es simpel, 't es plansen, 't es Vlaams!</p>
     </div>
 
     <header class="site-header">
@@ -235,12 +235,12 @@
 
             <div class="nav-center">
                 <ul class="nav-menu">
-                    <li><a href="/#features">Features</a></li>
-                    <li><a href="/#install">Install</a></li>
-                    <li><a href="index.html" class="active">Docs</a></li>
+                    <li><a href="/#features" data-lang="features">Features</a></li>
+                    <li><a href="/#install" data-lang="install">Install</a></li>
+                    <li><a href="index.html" class="active" data-lang="docs">Docs</a></li>
 
-                    <li><a href="/playground/">Playground</a></li>
-                    <li><a href="/#community">Community</a></li>
+                    <li><a href="/playground/" data-lang="playground">Playground</a></li>
+                    <li><a href="/#community" data-lang="community">Community</a></li>
                 </ul>
             </div>
 
@@ -251,7 +251,7 @@
                         <option value="vl">Vlaams</option>
                     </select>
                 </div>
-                <a href="/#installation" class="cta-button">Get Started</a>
+                <a href="/#installation" class="cta-button" data-lang="getStarted">Get Started</a>
                 <button class="mobile-menu-toggle" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
@@ -262,186 +262,331 @@
     </header>
 
     <div class="docs-container">
-        <div class="breadcrumbs">
-            <a href="/">Home</a> /
-            <a href="index.html">Docs</a> /
-            <span>Magic Mode</span>
-        </div>
+        <div data-lang-block="en">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> /
+                <a href="index.html">Docs</a> /
+                <span>Magic Mode</span>
+            </div>
 
-        <div class="magic-hero">
-            <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path><circle cx="12" cy="8" r="3" fill="currentColor" stroke="none"></circle><path d="M9.5 11.5a.5.5 0 0 1 .707.293l3-3a.5.5 0 0 1 .707.293l-3 3a.5.5 0 0 1-.707-.293l-3 3a.5.5 0 0 1-.707.293l3-3a.5.5 0 0 1 .707-.293z"></path></svg> Magic Mode</h1>
-            <p>Run .plats files directly with Python - no compilation step needed!</p>
-            <div class="magic-badge">It Just Works!</div>
-        </div>
+            <div class="magic-hero">
+                <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path><circle cx="12" cy="8" r="3" fill="currentColor" stroke="none"></circle><path d="M9.5 11.5a.5.5 0 0 1 .707.293l3-3a.5.5 0 0 1 .707.293l-3 3a.5.5 0 0 1-.707-.293l-3 3a.5.5 0 0 1-.707.293l3-3a.5.5 0 0 1 .707-.293z"></path></svg> Magic Mode</h1>
+                <p>Run <code>.plats</code> files directly with Python — no compilation step needed.</p>
+                <div class="magic-badge">It just works.</div>
+            </div>
 
-        <div class="doc-section">
-            <h2>What is Magic Mode?</h2>
-            <p>Magic Mode allows you to execute <code>.plats</code> files directly using Python's standard interpreter, just like running a <code>.py</code> file. No need to use the <code>plats run</code> command or compile your code first!</p>
+            <div class="doc-section">
+                <h2>What is Magic Mode?</h2>
+                <p>Magic Mode lets you execute <code>.plats</code> files directly with Python's standard interpreter, just like a <code>.py</code> file. No need to use <code>plats run</code> or compile your code first.</p>
 
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path></svg> Direct Execution</h4>
-                    <p>Run .plats files just like .py files</p>
-                </div>
-                <div class="feature-card">
-                    <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><polygon points="13 2 3 13 9 22 9 22 15 11 13 6 11 13 6 3 13 2 11 13 2 11 2 5 13 6 11 13 9 12 7 12 7 12 7 12 9 11 14 11 14 13 11 14 13 12 14 11 14 13 14 17 12 17 11 12 11 12 11"></polygon></svg> No Compilation</h4>
-                    <p>Skip to build step entirely</p>
-                </div>
-                <div class="feature-card">
-                    <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"></circle></svg> Zero Config</h4>
-                    <p>Just add one line to your file</p>
-                </div>
-                <div class="feature-card">
-                    <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path><circle cx="12" cy="17" r="3" fill="currentColor" stroke="none"></circle><path d="M12 12v-1.5l5-2v5l-5 2v-5h3a3 3 0 0 1-3-3v-2h-2v3a3 3 0 0 1-3 3v1h2v-2h2v1a3 3 0 0 1 3-3v1.5h-2.5v2a1 1 0 0 1-1-1v-2h2a1 1 0 0 1 1-1v2h2a1 1 0 0 1 1-1v-2h-2v2a1 1 0 0 1-1 1v1.5h2.5v2a1 1 0 0 1-1 1h2v-1.5z"></path></svg> Seamless Integration</h4>
-                    <p>Works with all Python tools</p>
-                </div>
-                <div class="feature-card">
-                    <h4>⚡ No Compilation</h4>
-                    <p>Skip the build step entirely</p>
-                </div>
-                <div class="feature-card">
-                    <h4>🎯 Zero Config</h4>
-                    <p>Just add one line to your file</p>
-                </div>
-                <div class="feature-card">
-                    <h4>🔧 Seamless Integration</h4>
-                    <p>Works with all Python tools</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path></svg> Direct execution</h4>
+                        <p>Run <code>.plats</code> files like <code>.py</code> files</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><polygon points="13 2 3 13 9 22 9 22 15 11 13 6 11 13 6 3 13 2 11 13 2 11 2 5 13 6 11 13 9 12 7 12 7 12 7 12 9 11 14 11 14 13 11 14 13 12 14 11 14 13 14 17 12 17 11 12 11 12 11"></polygon></svg> No compilation</h4>
+                        <p>Skip the build step entirely</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"></circle></svg> Zero config</h4>
+                        <p>Just add one line to your file</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path><circle cx="12" cy="17" r="3" fill="currentColor" stroke="none"></circle><path d="M12 12v-1.5l5-2v5l-5 2v-5h3a3 3 0 0 1-3-3v-2h-2v3a3 3 0 0 1-3 3v1h2v-2h2v1a3 3 0 0 1 3-3v1.5h-2.5v2a1 1 0 0 1-1-1v-2h2a1 1 0 0 1 1-1v2h2a1 1 0 0 1 1-1v-2h-2v2a1 1 0 0 1-1 1v1.5h2.5v2a1 1 0 0 1-1 1h2v-1.5z"></path></svg> Seamless integration</h4>
+                        <p>Works with all Python tools</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="doc-section">
-            <h2>How It Works</h2>
-            <p>Magic Mode leverages Python's PEP 263 encoding declaration and site-packages <code>.pth</code> file mechanism to automatically transpile and execute Platskript code.</p>
+            <div class="doc-section">
+                <h2>How it works</h2>
+                <p>Magic Mode uses Python's PEP 263 encoding declaration and the site-packages <code>.pth</code> mechanism to automatically transpile and execute Platskript code.</p>
 
-            <ol>
-                <li>Python detects <code># coding: vlaamsplats</code> (PEP 263) in your file and requests the corresponding codec</li>
-                <li>During normal startup, Python's <code>site</code> module processes <code>.pth</code> files in site-packages</li>
-                <li>VlaamsCodex installs <code>vlaamscodex_autoload.pth</code> which registers the custom codec</li>
-                <li>The codec decodes UTF-8 bytes, strips the encoding declaration, transpiles Platskript to Python</li>
-                <li>Python executes the generated Python code transparently</li>
-            </ol>
-        </div>
+                <ol>
+                    <li>Python detects <code># coding: vlaamsplats</code> (PEP 263) and requests the corresponding codec</li>
+                    <li>During startup, Python's <code>site</code> module processes <code>.pth</code> files in site-packages</li>
+                    <li>VlaamsCodex installs <code>vlaamscodex_autoload.pth</code> which registers the custom codec</li>
+                    <li>The codec decodes UTF-8 bytes, strips the encoding declaration, and transpiles Platskript to Python</li>
+                    <li>Python executes the generated Python code transparently</li>
+                </ol>
+            </div>
 
-        <div class="doc-section">
-            <h2>Getting Started</h2>
+            <div class="doc-section">
+                <h2>Getting started</h2>
 
-            <h3>Step 1: Install Vlaams Codex</h3>
-            <pre><code>pip install vlaamscodex</code></pre>
+                <h3>Step 1: Install Vlaams Codex</h3>
+                <pre><code>pip install vlaamscodex</code></pre>
 
-            <h3>Step 2: Create a .plats File</h3>
-            <pre><code># coding: vlaamsplats
+                <h3>Step 2: Create a .plats file</h3>
+                <pre><code># coding: vlaamsplats
 plan doe
   klap tekst gdag aan weeireld amen
 gedaan</code></pre>
 
-            <h3>Step 3: Run It Directly!</h3>
-            <pre><code>python hello.plats</code></pre>
+                <h3>Step 3: Run it directly</h3>
+                <pre><code>python hello.plats</code></pre>
 
-            <p>That's it! No need for <code>plats run</code> or any build step. Python handles everything automatically.</p>
-        </div>
+                <p>That's it. No need for <code>plats run</code> or any build step — Python handles it automatically.</p>
+            </div>
 
-        <div class="doc-section">
-            <h2>Advanced Usage</h2>
+            <div class="doc-section">
+                <h2>Advanced usage</h2>
 
-            <h3>Using with Shebang</h3>
-            <p>You can also use Magic Mode with shebang for executable .plats files:</p>
-            <pre><code>#!/usr/bin/env python
+                <h3>Using with shebang</h3>
+                <p>You can also use Magic Mode with a shebang for executable <code>.plats</code> files:</p>
+                <pre><code>#!/usr/bin/env python
 # coding: vlaamsplats
 
 plan doe
   klap tekst gdag aan weeireld amen
 gedaan</code></pre>
 
-            <pre><code>chmod +x hello.plats
+                <pre><code>chmod +x hello.plats
 ./hello.plats</code></pre>
 
-            <h3>Integration with Python Tools</h3>
-            <p>Magic Mode works seamlessly with:</p>
-            <ul>
-                <li><strong>Python debugger (pdb)</strong>: <code>python -m pdb script.plats</code></li>
-                <li><strong>Profiling</strong>: <code>python -m cProfile script.plats</code></li>
-                <li><strong>Code coverage</strong>: <code>python -m coverage run script.plats</code></li>
-                <li><strong>Any Python tool</strong> that accepts a .py file!</li>
-            </ul>
-        </div>
-
-        <div class="doc-section">
-            <h2>Limitations</h2>
-
-            <div class="warning-box">
-                <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="warning-icon"><path d="M12 2L12 4m0 0 6 0 0 1.5 0 12.5 1.5l-6.5 6.5 0 6.5-6.5z"></path><path d="M12 8v.01"></path></svg> Important: Python Flags</h4>
-                <p>Magic Mode does not work with these Python flags because they disable site module:</p>
-                <ul style="margin-top: 1rem; padding-left: 1.5rem;">
-                    <li><code>-S</code> or <code>--no-site</code> - Disables site module</li>
-                    <li><code>-I</code> or <code>--isolated</code> - Isolated mode restricts site-packages</li>
+                <h3>Integration with Python tools</h3>
+                <p>Magic Mode works with:</p>
+                <ul>
+                    <li><strong>Python debugger (pdb)</strong>: <code>python -m pdb script.plats</code></li>
+                    <li><strong>Profiling</strong>: <code>python -m cProfile script.plats</code></li>
+                    <li><strong>Code coverage</strong>: <code>python -m coverage run script.plats</code></li>
+                    <li><strong>Any tool</strong> that accepts a <code>.py</code> file</li>
                 </ul>
             </div>
 
-            <h3>Fallback</h3>
-            <p>When Magic Mode is unavailable, you can always use the standard command:</p>
-            <pre><code>plats run script.plats</code></pre>
+            <div class="doc-section">
+                <h2>Limitations</h2>
 
-            <p>This will compile and execute your Platskript code normally.</p>
-        </div>
+                <div class="warning-box">
+                    <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="warning-icon"><path d="M12 2L12 4m0 0 6 0 0 1.5 0 12.5 1.5l-6.5 6.5 0 6.5-6.5z"></path><path d="M12 8v.01"></path></svg> Important: Python flags</h4>
+                    <p>Magic Mode does not work with these flags because they disable the site module:</p>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                        <li><code>-S</code> / <code>--no-site</code> — disables the site module</li>
+                        <li><code>-I</code> / <code>--isolated</code> — isolated mode restricts site-packages</li>
+                    </ul>
+                </div>
 
-        <div class="doc-section">
-            <h2>Troubleshooting</h2>
+                <h3>Fallback</h3>
+                <p>If Magic Mode is unavailable, use the standard command:</p>
+                <pre><code>plats run script.plats</code></pre>
 
-            <div class="info-box">
-                <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="info-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="12"></line></svg> Codec Not Found</h4>
-                <p>If you get "codec not found: vlaamscodex", make sure vlaamscodex is properly installed:</p>
-                <pre style="margin: 1rem 0;"><code>pip install --force-reinstall vlaamscodex</code></pre>
+                <p>This compiles and executes your Platskript code normally.</p>
             </div>
 
-            <h3>Common Issues</h3>
-            <ul>
-                <li><strong>ImportError</strong>: Reinstall with <code>pip install --force-reinstall vlaamscodex</code></li>
-                <li><strong>Using -S flag</strong>: Remove the <code>-S</code> flag from your Python command</li>
-                <li><strong>Virtual environments</strong>: Install vlaamscodex inside your virtual environment</li>
-            </ul>
-        </div>
+            <div class="doc-section">
+                <h2>Troubleshooting</h2>
 
-        <div class="doc-section">
-            <h2>Examples</h2>
+                <div class="info-box">
+                    <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="info-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="12"></line></svg> Codec not found</h4>
+                    <p>If you get <code>codec not found: vlaamscodex</code>, make sure vlaamscodex is installed correctly:</p>
+                    <pre style="margin: 1rem 0;"><code>pip install --force-reinstall vlaamscodex</code></pre>
+                </div>
 
-            <h3>Simple Hello World</h3>
-            <pre><code># coding: vlaamsplats
+                <h3>Common issues</h3>
+                <ul>
+                    <li><strong>ImportError</strong>: reinstall with <code>pip install --force-reinstall vlaamscodex</code></li>
+                    <li><strong>Using the -S flag</strong>: remove <code>-S</code> from your Python command</li>
+                    <li><strong>Virtual environments</strong>: install vlaamscodex inside your venv</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2>Examples</h2>
+
+                <h3>Simple hello world</h3>
+                <pre><code># coding: vlaamsplats
 plan doe
   klap tekst gdag aan weeireld amen
 gedaan</code></pre>
 
-            <h3>Using Functions</h3>
-            <pre><code># coding: vlaamsplats
+                <h3>Using functions</h3>
+                <pre><code># coding: vlaamsplats
 plan doe
   maak funksie groet met naam doe
     klap tekst gdag plakt spatie plakt da naam amen
   gedaan
 
-  roep groet met da Piet amen
+  roep groet met tekst Piet amen
 gedaan</code></pre>
+            </div>
 
-            <h3>More Complex Program</h3>
-            <pre><code># coding: vlaamsplats
-plan doe
-  zet namen op lijst tekst Jan tekst Piet tekst Anna amen
-  voor elke naam in da namen doe
-    klap tekst gdag plakt spatie plakt da naam amen
-  gedaan
-gedaan</code></pre>
+            <div class="doc-section">
+                <h2>Need help?</h2>
+                <p>If you run into issues with Magic Mode:</p>
+                <ul>
+                    <li>Check the <a href="https://github.com/brentishere41848/Vlaams-Codex/issues">GitHub Issues</a></li>
+                    <li>Read the <a href="index.html#language-spec">Language specification</a></li>
+                    <li>Join the community on <a href="https://github.com/brentishere41848/Vlaams-Codex">GitHub</a></li>
+                </ul>
+
+                <div style="margin-top: 2rem;">
+                    <a href="/playground/" class="cta-button primary">Try in Playground →</a>
+                </div>
+            </div>
         </div>
 
-        <div class="doc-section">
-            <h2>Need Help?</h2>
-            <p>If you encounter any issues with Magic Mode:</p>
-            <ul>
-                <li>Check the <a href="https://github.com/brentishere41848/Vlaams-Codex/issues">GitHub Issues</a></li>
-                <li>Read the <a href="index.html#language-spec">Language Specification</a></li>
-                <li>Join the community on <a href="https://github.com/brentishere41848/Vlaams-Codex">GitHub</a></li>
-            </ul>
+        <div data-lang-block="vl" hidden>
+            <div class="breadcrumbs">
+                <a href="/">Home</a> /
+                <a href="index.html">Docs</a> /
+                <span>Magic Mode</span>
+            </div>
 
-            <div style="margin-top: 2rem;">
-                <a href="/playground/" class="cta-button primary">Try in Playground →</a>
+            <div class="magic-hero">
+                <h1><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path><circle cx="12" cy="8" r="3" fill="currentColor" stroke="none"></circle><path d="M9.5 11.5a.5.5 0 0 1 .707.293l3-3a.5.5 0 0 1 .707.293l-3 3a.5.5 0 0 1-.707-.293l-3 3a.5.5 0 0 1-.707.293l3-3a.5.5 0 0 1 .707-.293z"></path></svg> Magic Mode</h1>
+                <p>Voer <code>.plats</code>-bestanden rechtstreeks uit met Python — geen compilatie nodig.</p>
+                <div class="magic-badge">’t Werkt gewoon.</div>
+            </div>
+
+            <div class="doc-section">
+                <h2>Wat is Magic Mode?</h2>
+                <p>Magic Mode laat u <code>.plats</code>-bestanden direct uitvoeren met de standaard Python-interpreter, net zoals een <code>.py</code>-bestand. Ge moet dus geen <code>plats run</code> gebruiken en ge moet ook niet eerst compileren.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path></svg> Rechtstreeks uitvoeren</h4>
+                        <p>Run <code>.plats</code>-bestanden zoals <code>.py</code>-bestanden</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><polygon points="13 2 3 13 9 22 9 22 15 11 13 6 11 13 6 3 13 2 11 13 2 11 2 5 13 6 11 13 9 12 7 12 7 12 7 12 9 11 14 11 14 13 11 14 13 12 14 11 14 13 14 17 12 17 11 12 11 12 11"></polygon></svg> Geen compilatie</h4>
+                        <p>De build-stap kunt ge overslaan</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"></circle></svg> Geen config</h4>
+                        <p>Ge zet één regel bovenaan uw bestand en ’t is klaar</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="feature-icon-svg"><path d="M12 2L2 7l10 5l-10 5 10 10-10-10z"></path><circle cx="12" cy="17" r="3" fill="currentColor" stroke="none"></circle><path d="M12 12v-1.5l5-2v5l-5 2v-5h3a3 3 0 0 1-3-3v-2h-2v3a3 3 0 0 1-3 3v1h2v-2h2v1a3 3 0 0 1 3-3v1.5h-2.5v2a1 1 0 0 1-1-1v-2h2a1 1 0 0 1 1-1v2h2a1 1 0 0 1 1-1v-2h-2v2a1 1 0 0 1-1 1v1.5h2.5v2a1 1 0 0 1-1 1h2v-1.5z"></path></svg> Naadloze integratie</h4>
+                        <p>Werkt met alle Python-tools</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h2>Hoe werkt dat?</h2>
+                <p>Magic Mode gebruikt Python z’n PEP 263 encoding declaration en het site-packages <code>.pth</code>-mechanisme om Platskript automatisch te transpilen en uit te voeren.</p>
+
+                <ol>
+                    <li>Python ziet <code># coding: vlaamsplats</code> (PEP 263) en vraagt de juiste codec op</li>
+                    <li>Tijdens het opstarten verwerkt Python z’n <code>site</code>-module de <code>.pth</code>-files in site-packages</li>
+                    <li>VlaamsCodex installeert <code>vlaamscodex_autoload.pth</code> om de custom codec te registreren</li>
+                    <li>De codec decodeert UTF-8 bytes, haalt de encoding-regel weg en transpilt Platskript naar Python</li>
+                    <li>Python voert de gegenereerde Python-code transparant uit</li>
+                </ol>
+            </div>
+
+            <div class="doc-section">
+                <h2>Aan de slag</h2>
+
+                <h3>Stap 1: installeer Vlaams Codex</h3>
+                <pre><code>pip install vlaamscodex</code></pre>
+
+                <h3>Stap 2: maak een .plats-bestand</h3>
+                <pre><code># coding: vlaamsplats
+plan doe
+  klap tekst gdag aan weeireld amen
+gedaan</code></pre>
+
+                <h3>Stap 3: voer het rechtstreeks uit</h3>
+                <pre><code>python hello.plats</code></pre>
+
+                <p>Da’s alles. Geen <code>plats run</code> nodig en geen build-stap — Python regelt dat automatisch.</p>
+            </div>
+
+            <div class="doc-section">
+                <h2>Geavanceerd gebruik</h2>
+
+                <h3>Werken met shebang</h3>
+                <p>Ge kunt Magic Mode ook gebruiken met een shebang, zodat uw <code>.plats</code>-bestand uitvoerbaar wordt:</p>
+                <pre><code>#!/usr/bin/env python
+# coding: vlaamsplats
+
+plan doe
+  klap tekst gdag aan weeireld amen
+gedaan</code></pre>
+
+                <pre><code>chmod +x hello.plats
+./hello.plats</code></pre>
+
+                <h3>Integratie met Python-tools</h3>
+                <p>Magic Mode werkt bijvoorbeeld met:</p>
+                <ul>
+                    <li><strong>Python debugger (pdb)</strong>: <code>python -m pdb script.plats</code></li>
+                    <li><strong>Profiling</strong>: <code>python -m cProfile script.plats</code></li>
+                    <li><strong>Code coverage</strong>: <code>python -m coverage run script.plats</code></li>
+                    <li><strong>Elke tool</strong> die normaal een <code>.py</code>-bestand pakt</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2>Beperkingen</h2>
+
+                <div class="warning-box">
+                    <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="warning-icon"><path d="M12 2L12 4m0 0 6 0 0 1.5 0 12.5 1.5l-6.5 6.5 0 6.5-6.5z"></path><path d="M12 8v.01"></path></svg> Belangrijk: Python flags</h4>
+                    <p>Magic Mode werkt niet met deze flags, omdat die de site-module uitschakelen:</p>
+                    <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                        <li><code>-S</code> / <code>--no-site</code> — schakelt de site-module uit</li>
+                        <li><code>-I</code> / <code>--isolated</code> — isolated mode beperkt site-packages</li>
+                    </ul>
+                </div>
+
+                <h3>Fallback</h3>
+                <p>Als Magic Mode niet beschikbaar is, kunt ge altijd dit gebruiken:</p>
+                <pre><code>plats run script.plats</code></pre>
+
+                <p>Dan compileert en voert Vlaams Codex uw Platskript normaal uit.</p>
+            </div>
+
+            <div class="doc-section">
+                <h2>Problemen oplossen</h2>
+
+                <div class="info-box">
+                    <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="info-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="2" x2="12" y2="12"></line></svg> Codec niet gevonden</h4>
+                    <p>Als ge <code>codec not found: vlaamscodex</code> krijgt, kijk dan of vlaamscodex juist geïnstalleerd is:</p>
+                    <pre style="margin: 1rem 0;"><code>pip install --force-reinstall vlaamscodex</code></pre>
+                </div>
+
+                <h3>Veelvoorkomende issues</h3>
+                <ul>
+                    <li><strong>ImportError</strong>: herinstalleer met <code>pip install --force-reinstall vlaamscodex</code></li>
+                    <li><strong>-S flag gebruikt</strong>: haal <code>-S</code> weg uit uw Python-commando</li>
+                    <li><strong>Virtual environments</strong>: installeer vlaamscodex in uw venv</li>
+                </ul>
+            </div>
+
+            <div class="doc-section">
+                <h2>Voorbeelden</h2>
+
+                <h3>Simpel hello world</h3>
+                <pre><code># coding: vlaamsplats
+plan doe
+  klap tekst gdag aan weeireld amen
+gedaan</code></pre>
+
+                <h3>Werken met functies</h3>
+                <pre><code># coding: vlaamsplats
+plan doe
+  maak funksie groet met naam doe
+    klap tekst gdag plakt spatie plakt da naam amen
+  gedaan
+
+  roep groet met tekst Piet amen
+gedaan</code></pre>
+            </div>
+
+            <div class="doc-section">
+                <h2>Hulp nodig?</h2>
+                <p>Als ge problemen hebt met Magic Mode:</p>
+                <ul>
+                    <li>Check de <a href="https://github.com/brentishere41848/Vlaams-Codex/issues">GitHub Issues</a></li>
+                    <li>Lees de <a href="index.html#language-spec">Language specification</a></li>
+                    <li>Sluit aan via <a href="https://github.com/brentishere41848/Vlaams-Codex">GitHub</a></li>
+                </ul>
+
+                <div style="margin-top: 2rem;">
+                    <a href="/playground/" class="cta-button primary">Probeer in ’t Speelterrein →</a>
+                </div>
             </div>
         </div>
     </div>

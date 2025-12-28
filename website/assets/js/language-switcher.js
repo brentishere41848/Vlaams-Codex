@@ -154,6 +154,21 @@
     function applyLanguage(language) {
         const trans = translations[language];
 
+        function applyLanguageBlocks() {
+            document.querySelectorAll('[data-lang-block]').forEach(element => {
+                const raw = element.getAttribute('data-lang-block') || '';
+                const langs = raw.split(/[\s,]+/).filter(Boolean);
+                if (!langs.length) return;
+
+                const show = langs.includes(language);
+                if (show) {
+                    element.removeAttribute('hidden');
+                } else {
+                    element.setAttribute('hidden', '');
+                }
+            });
+        }
+
         if (window.VlaamsCodex && window.VlaamsCodex.showLoadingScreen) {
             window.VlaamsCodex.showLoadingScreen(() => {
                 document.querySelectorAll('[data-lang]').forEach(element => {
@@ -177,6 +192,8 @@
                         console.warn(`[i18n] Missing placeholder key "${key}" for language "${language}"`);
                     }
                 });
+
+                applyLanguageBlocks();
 
                 document.documentElement.lang = language === 'vl' ? 'nl' : 'en';
 
@@ -207,6 +224,8 @@
                     console.warn(`[i18n] Missing placeholder key "${key}" for language "${language}"`);
                 }
             });
+
+            applyLanguageBlocks();
 
             document.documentElement.lang = language === 'vl' ? 'nl' : 'en';
 
