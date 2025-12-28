@@ -3,13 +3,13 @@
 [![PyPI version](https://img.shields.io/pypi/v/vlaamscodex.svg)](https://pypi.org/project/vlaamscodex/)
 [![Python 3.10+](https://img.shields.io/pypi/pyversions/vlaamscodex.svg)](https://pypi.org/project/vlaamscodex/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![CI](https://github.com/brentishere41848/Vlaamse-Codex/actions/workflows/ci.yml/badge.svg)](https://github.com/brentishere41848/Vlaamse-Codex/actions/workflows/ci.yml)
+[![CI](https://github.com/brentishere41848/Vlaams-Codex/actions/workflows/ci.yml/badge.svg)](https://github.com/brentishere41848/Vlaams-Codex/actions/workflows/ci.yml)
 
 > **'t Es simpel, 't es plansen, 't es Vlaams!**
 
-A transpiler toolchain for **Platskript** (`.plats`), a parody programming language that uses Flemish dialect keywords. VlaamsCodex compiles Platskript source code to Python and executes it.
+A transpiler toolchain for **Platskript** (`.plats`), a programming language that uses Flemish dialect keywords. VlaamsCodex compiles Platskript source code to Python and executes it.
 
-**NEW in v0.2.0**: Full Multi-Vlaams dialect support with 80+ command aliases from all Flemish regions!
+**NEW in v0.2.5**: Browser playground + fixed website examples + improved compiler support (`als`/`zolang`, safer `plakt`).
 
 ---
 
@@ -142,8 +142,8 @@ pipx install vlaamscodex
 ### Option C: Development
 
 ```bash
-git clone https://github.com/brentishere41848/Vlaamse-Codex.git
-cd Vlaamse-Codex
+git clone https://github.com/brentishere41848/Vlaams-Codex.git
+cd Vlaams-Codex
 pip install -e ".[dev]"
 ```
 
@@ -280,7 +280,7 @@ Install the VlaamsCodex extension for syntax highlighting:
 
 Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
 
-Bugs? Ideas? [Open an issue](https://github.com/brentishere41848/Vlaamse-Codex/issues)!
+Bugs? Ideas? [Open an issue](https://github.com/brentishere41848/Vlaams-Codex/issues)!
 
 ---
 

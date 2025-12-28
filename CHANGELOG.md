@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.5] - 2025-12-28
+
+### Added
+
+- Website: `website/playground/` — browser playground (Pyodide) om Platskript te runnen.
+- Website: `website/examples/code-blocks/` — “View Full Code” pagina’s per example.
+- Website footer: Discord invite link toegevoegd.
+
+### Changed
+
+- Compiler: support voor `maak als ... doe` / `maak zolang ... doe` / `anders` (control flow).
+- Compiler: `roep ...` kan nu ook in expressions (bv. `klap roep ...` en `zet x op roep ...`).
+- Compiler: `maak funksie <naam> doe` (zonder `met`) werkt nu ook.
+- Compiler: `plakt` stringify’t waarden (geen crash meer bij tekst + getal).
+- Compiler: `waar`/`onwaar` literals + `en`/`of` als logische operators.
+- Website: examples links & knoppen gefixt; “Run in Playground” opent nu het echte playground.
+- Website: emoji icons verwijderd en vervangen door SVG icons.
+- Website: footer links gefixt zodat alles naar bestaande pagina’s gaat.
+- Website: Euraika logo linkt nu door naar `https://euraika.net`.
+- Project links: repository URLs gestandaardiseerd naar `brentishere41848/Vlaams-Codex`.
+
+## [0.2.4] - 2025-12-28
+
+### Added
+
+- `discord-bot/`: support tickets (dropdown panel + ticket-kanalen onder categorie) + `/stuurlinks` post naar vast kanaal.
+- Bot mention replies: `@botnaam` geeft plat-Vlaamse reactie.
+
+### Changed
+
+- Project messaging: “parody/parodie” wording verwijderd (docs/website/metadata) — VlaamsCodex is serieus bedoeld.
+- CI: fixed `publish.yml` conditional zodat de workflow weer geldig is.
+
+## [0.2.3] - 2025-12-28
+
+### Added
+
+- `discord-bot/`: Discord bot (discord.js v14, ESM) die GitHub Releases monitort (polling) en automatisch announcements post.
+- GitHub workflow: create GitHub Release bij tag push (`v*.*.*`).
+- GitHub workflow: sync “latest release” body vanuit `CHANGELOG.md`.
+
+### Changed
+
+- README: “NEW in v0.2.3”.
+- `.gitignore`: `.env` en bot state worden genegeerd.
+
+## [0.2.2] - 2025-12-28
+
+### Changed
+
+- VS Code extension: added "Debug Plats File" via Python debugger and line-preserving compilation.
+
+## [0.2.1] - 2025-12-28
+
+### Added
+
+- npm package wrapper for installing/running `plats` via Node.js.
+- Chocolatey packaging skeleton (local pack/install workflow).
+- VS Code extension improvements: run/build/check in the integrated terminal + optional auto-bootstrap Python venv.
 ## [0.2.0] - 2025-12-28
 
 ### Added - Multi-Vlaams Editie! 🇧🇪
@@ -190,13 +249,17 @@ Full command aliases for 7 Flemish regions:
 - Variable reference: `da <name>`
 - Space literal: `spatie`
 - Operators: `plakt`, `derbij`, `deraf`, `keer`, `gedeeld`, `isgelijk`, `isniegelijk`, `isgroterdan`, `iskleinerdan`, `enook`, `ofwel`, `nie`
-
-[Unreleased]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.7...v0.2.0
-[0.1.7]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.6...v0.1.7
-[0.1.6]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.5...v0.1.6
-[0.1.5]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.4...v0.1.5
-[0.1.4]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.3...v0.1.4
-[0.1.3]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.1...v0.1.3
-[0.1.1]: https://github.com/brentishere41848/Vlaamse-Codex/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/brentishere41848/Vlaamse-Codex/releases/tag/v0.1.0
+[Unreleased]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.2.5...HEAD
+[0.2.5]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.2.4...v0.2.5
+[0.2.4]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.2.3...v0.2.4
+[0.2.3]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.1.7...v0.2.0
+[0.1.7]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.1.6...v0.1.7
+[0.1.6]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.1.5...v0.1.6
+[0.1.5]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.1.4...v0.1.5
+[0.1.4]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.1.1...v0.1.3
+[0.1.1]: https://github.com/brentishere41848/Vlaams-Codex/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/brentishere41848/Vlaams-Codex/releases/tag/v0.1.0

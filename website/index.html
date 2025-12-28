@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vlaams Codex - A programming language using Flemish dialect keywords that compiles to Python. Multi-Vlaams edition with 7 dialects supported.">
+    <meta name="keywords" content="Vlaams Codex, Platskript, programming language, Flemish, dialect, Python, transpiler">
+    <meta name="author" content="Vlaams Codex Team">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Vlaams Codex - Multi-Vlaams Editie 🇧🇪</title>
+    
+    <link rel="canonical" href="https://vlaamscodex.dev/">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta property="og:title" content="Vlaams Codex - Multi-Vlaams Editie 🇧🇪">
+    <meta property="og:description" content="'t Es simpel, 't es plansen, 't es Vlaams! A programming language using Flemish dialect keywords.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vlaamscodex.dev/">
+    <meta property="og:image" content="https://vlaamscodex.dev/assets/images/vlaamscodex.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vlaams Codex - Multi-Vlaams Editie 🇧🇪">
+    <meta name="twitter:description" content="'t Es simpel, 't es plansen, 't es Vlaams!">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+    <div id="loadingScreen" class="loading-screen">
+        <img src="icon.png" alt="Vlaams Codex Logo" class="loading-logo">
+        <p class="loading-text">'t Es simpel, 't es plansen, 't es Vlaams!</p>
+    </div>
+    
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">
+                    <img src="icon.png" alt="Vlaams Codex Logo" class="logo-img">
+                    <span class="logo-text">Vlaams Codex</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <ul class="nav-menu">
+                    <li><a href="#features" data-lang="features">Features</a></li>
+                    <li><a href="#installation" data-lang="install">Install</a></li>
+                    <li><a href="docs/" data-lang="docs">Docs</a></li>
+                    <li><a href="examples/" data-lang="examples">Examples</a></li>
+                    <li><a href="#community" data-lang="community">Community</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-right">
+                <div class="language-switcher">
+                    <select id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="vl">🇧🇪 Vlaams</option>
+                    </select>
+                </div>
+                <a href="#installation" class="cta-button" data-lang="getStarted">Get Started</a>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badges">
+                        <a href="https://www.npmjs.com/package/vlaamscodex" target="_blank" rel="noopener" class="badge-link">
+                            <img src="https://img.shields.io/npm/v/vlaamscodex?style=flat-square" alt="npm version">
+                        </a>
+                        <a href="https://www.npmjs.com/package/vlaamscodex" target="_blank" rel="noopener" class="badge-link">
+                            <img src="https://img.shields.io/npm/dm/vlaamscodex?style=flat-square" alt="npm downloads">
+                        </a>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="title-main">Vlaams Codex</span>
+                        <span class="title-subtitle">'t Es simpel, 't es plansen, 't es Vlaams!</span>
+                    </h1>
+                    
+                    <p class="hero-description" data-lang="heroDescription">
+                        A programming language using Flemish dialect keywords that compiles to Python. 
+                        Write in West-Vlaams, Antwerps, Limburgs, and more - then execute seamlessly!
+                    </p>
+                    
+                    <div class="hero-ctas">
+                        <a href="#installation" class="cta-button primary" data-lang="installNow">
+                            Install Now
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="docs/magic-mode.html" class="cta-button secondary" data-lang="magicMode">
+                            Try Magic Mode
+                        </a>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-value">7</span>
+                            <span class="stat-label" data-lang="dialects">Dialects</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">80+</span>
+                            <span class="stat-label" data-lang="commands">Commands</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label" data-lang="free">Free</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-code">
+                    <div class="code-window">
+                        <div class="code-window-header">
+                            <div class="window-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <span class="window-title">hello.plats</span>
+                        </div>
+                        <pre class="code-content"><code class="language-plats"># coding: vlaamsplats
+plan doe
+  zet naam op tekst weeireld amen
+
+  maak funksie groet met wie doe
+    klap tekst gdag plakt spatie plakt tekst aan plakt spatie plakt da wie amen
+  gedaan
+
+  roep groet met da naam amen
+gedaan</code></pre>
+                        <div class="code-output">
+                            <span class="output-label">Output:</span>
+                            <span class="output-text">gdag aan weeireld</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="partners-section">
+            <div class="container">
+                <h2 class="partners-title">Proud Partner Of</h2>
+                <div class="partners-grid">
+                    <a href="https://euraika.net" class="partner-logo" title="Euraika" target="_blank" rel="noopener">
+                        <img src="assets/images/euraika-logo.png" alt="Euraika Logo">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section" id="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-lang="whyVlaamsCodex">Why Vlaams Codex?</h2>
+                    <p class="section-subtitle" data-lang="whyVlaamsCodexSubtitle">
+                        Experience programming in your native Flemish dialect with powerful features
+                    </p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M7 10h10a4 4 0 0 1 0 8H9l-4 3v-3a4 4 0 0 1 2-8z"></path>
+                                <path d="M9 13h6"></path>
+                                <path d="M9 15h4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title" data-lang="multiVlaamsDialects">Multi-Vlaams Dialects</h3>
+                        <p class="feature-description" data-lang="multiVlaamsDescription">
+                            Write code in 7 Flemish dialects with 80+ command aliases. 
+                            West-Vlaams, Antwerps, Limburgs, Brussels, Genks, and more!
+                        </p>
+                        <a href="docs/multi-vlaams.html" class="feature-link" data-lang="exploreDialects">Explore Dialects →</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
+                                <path d="M20 14l.8 2.8L23 18l-2.2.8L20 22l-.8-3.2L17 18l2.2-1.2L20 14z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title" data-lang="magicMode">Magic Mode</h3>
+                        <p class="feature-description" data-lang="magicModeDescription">
+                            Run .plats files directly with Python using custom encoding. 
+                            No compilation step needed - it just works!
+                        </p>
+                        <a href="docs/magic-mode.html" class="feature-link" data-lang="learnHow">Learn How →</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M7 14h10"></path>
+                                <path d="M9 12v4"></path>
+                                <path d="M15 13h.01"></path>
+                                <path d="M17 15h.01"></path>
+                                <path d="M6 12a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4l-1.2 6a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L6 12z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title" data-lang="interactiveRepl">Interactive REPL</h3>
+                        <p class="feature-description" data-lang="interactiveReplDescription">
+                            Try Platskript in real-time with the interactive REPL. 
+                            Test your code instantly with live feedback.
+                        </p>
+                        <a href="docs/cli-reference.html" class="feature-link" data-lang="startRepl">Start REPL →</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M7 8c0-2 1.6-3.5 3.5-3.5h3C16 4.5 17 5.8 17 7.5V9"></path>
+                                <path d="M17 16c0 2-1.6 3.5-3.5 3.5h-3C8 19.5 7 18.2 7 16.5V15"></path>
+                                <path d="M10 9h4"></path>
+                                <path d="M10 15h4"></path>
+                                <path d="M9 11.5h.01M15 12.5h.01"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title" data-lang="pythonIntegration">Python Integration</h3>
+                        <p class="feature-description" data-lang="pythonIntegrationDescription">
+                            Seamless transpilation to Python. Use any Python library 
+                            and framework with Platskript syntax.
+                        </p>
+                        <a href="docs/language-spec.html" class="feature-link" data-lang="viewSpec">View Spec →</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <rect x="4" y="5" width="16" height="11" rx="2"></rect>
+                                <path d="M2 19h20"></path>
+                                <path d="M9 8l-2 2 2 2"></path>
+                                <path d="M15 8l2 2-2 2"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title" data-lang="vscodeExtension">VS Code Extension</h3>
+                        <p class="feature-description" data-lang="vscodeExtensionDescription">
+                            Full syntax highlighting, IntelliSense, and code snippets 
+                            for the best development experience.
+                        </p>
+                        <a href="#installation" class="feature-link" data-lang="installExtension">Install Extension →</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M21 8l-9-5-9 5 9 5 9-5z"></path>
+                                <path d="M3 8v8l9 5 9-5V8"></path>
+                                <path d="M12 13v8"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title" data-lang="easyInstallation">Easy Installation</h3>
+                        <p class="feature-description" data-lang="easyInstallationDescription">
+                            One-line installation with pip. Supports pipx for isolated 
+                            environments and development mode for contributors.
+                        </p>
+                        <a href="#installation" class="feature-link" data-lang="installNow">Install Now →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-start-section" id="installation">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-lang="quickStart">Quick Start</h2>
+                    <p class="section-subtitle" data-lang="quickStartSubtitle">Get started with Vlaams Codex in seconds</p>
+                </div>
+                
+                <div class="quick-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="step-title" data-lang="install">Install</h3>
+                            <pre class="step-code"><code class="language-bash"># Using pip
+pip install vlaamscodex
+
+# Or using npm
+npm install vlaamscodex</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="step-title" data-lang="runFirstProgram">Run Your First Program</h3>
+                            <pre class="step-code"><code class="language-bash">plats run examples/hello.plats</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="step-title" data-lang="orUseMagicMode">Or Use Magic Mode</h3>
+                            <pre class="step-code"><code class="language-bash">python examples/hello.plats</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="installation-options">
+                    <h3 class="options-title" data-lang="installationOptions">Installation Options</h3>
+                    <div class="options-grid">
+                        <div class="option-card recommended">
+                            <span class="option-badge" data-lang="recommended">Recommended</span>
+                            <h4>pipx (Isolated)</h4>
+                            <pre><code class="language-bash">pipx install vlaamscodex</code></pre>
+                            <p data-lang="perfectForEndUsers">Perfect for end users. Keeps dependencies isolated.</p>
+                        </div>
+                        
+                        <div class="option-card">
+                            <h4>pip (Standard)</h4>
+                            <pre><code class="language-bash">pip install vlaamscodex</code></pre>
+                            <p data-lang="standardInstallation">Standard installation. Works with existing Python setup.</p>
+                        </div>
+                        
+                        <div class="option-card">
+                            <h4>Development</h4>
+                            <pre><code class="language-bash">git clone https://github.com/brentishere41848/Vlaams-Codex.git
+cd Vlaams-Codex
+pip install -e ".[dev]"</code></pre>
+                            <p data-lang="forContributors">For contributors. Includes test suite and development tools.</p>
+                        </div>
+
+                        <div class="option-card highlight">
+                            <span class="option-badge">NPM</span>
+                            <h4>npm</h4>
+                            <pre><code class="language-bash">npm install vlaamscodex</code></pre>
+                            <p data-lang="en">Install for Node.js projects. Available now!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dialect-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-lang="multiVlaamsCommands">Multi-Vlaams Dialect Commands</h2>
+                    <p class="section-subtitle" data-lang="multiVlaamsSubtitle">
+                        Every command works in 7 Flemish dialects! Use whichever feels most natural.
+                    </p>
+                </div>
+                
+                <div class="dialect-table-container">
+                    <table class="dialect-table">
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Standard</th>
+                                <th>West-Vlaams</th>
+                                <th>Antwerps</th>
+                                <th>Limburgs</th>
+                                <th>Brussels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Run Program</strong></td>
+                                <td><code>run</code></td>
+                                <td><code>voertuut</code></td>
+                                <td><code>doet</code></td>
+                                <td><code>gaon</code></td>
+                                <td><code>doeda</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Interactive REPL</strong></td>
+                                <td><code>repl</code></td>
+                                <td><code>proboir</code></td>
+                                <td><code>smos</code></td>
+                                <td><code>efkes</code></td>
+                                <td><code>praot</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Browse Examples</strong></td>
+                                <td><code>examples</code></td>
+                                <td><code>tuuntnekeer</code></td>
+                                <td><code>toondada</code></td>
+                                <td><code>loatskien</code></td>
+                                <td><code>toontmansen</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Check Syntax</strong></td>
+                                <td><code>check</code></td>
+                                <td><code>zijdezekers</code></td>
+                                <td><code>istdagoe</code></td>
+                                <td><code>kloptda</code></td>
+                                <td><code>isdagoe</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>New Project</strong></td>
+                                <td><code>init</code></td>
+                                <td><code>allehop</code></td>
+                                <td><code>awel</code></td>
+                                <td><code>allei</code></td>
+                                <td><code>maakaan</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fortune</strong></td>
+                                <td><code>fortune</code></td>
+                                <td><code>zegt</code></td>
+                                <td><code>watteda</code></td>
+                                <td><code>wiste</code></td>
+                                <td><code>spreuk</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="dialect-cta">
+                    <a href="docs/multi-vlaams.html" class="cta-button secondary" data-lang="viewAllDialects">
+                        View All Dialects →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="examples-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-lang="exploreExamples">Explore Examples</h2>
+                    <p class="section-subtitle" data-lang="exploreExamplesSubtitle">Learn by doing with ready-to-run examples</p>
+                </div>
+                
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M7 10h10a4 4 0 0 1 0 8H9l-4 3v-3a4 4 0 0 1 2-8z"></path>
+                                <path d="M9 13h6"></path>
+                            </svg>
+                        </div>
+                        <h3>Hello World</h3>
+                        <p>The classic "gdag aan weeireld" example</p>
+                        <a href="examples/hello.html" class="example-link">View Example →</a>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <rect x="6" y="3" width="12" height="18" rx="2"></rect>
+                                <rect x="8.5" y="5.5" width="7" height="3" rx="0.8"></rect>
+                                <path d="M9 11h2M13 11h2M9 14h2M13 14h2M9 17h2M13 17h2"></path>
+                            </svg>
+                        </div>
+                        <h3>Calculator</h3>
+                        <p>Basic arithmetic operations</p>
+                        <a href="examples/calculator.html" class="example-link">View Example →</a>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M6 17c4-8 8-8 12 0"></path>
+                                <path d="M6 7h6"></path>
+                                <path d="M12 7l-6 10"></path>
+                                <path d="M12 17h6"></path>
+                            </svg>
+                        </div>
+                        <h3>Fibonacci</h3>
+                        <p>Recursive function example</p>
+                        <a href="examples/fibonacci.html" class="example-link">View Example →</a>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <rect x="5" y="5" width="14" height="14" rx="2"></rect>
+                                <path d="M9 9h.01M15 15h.01"></path>
+                                <path d="M15 9h.01M9 15h.01"></path>
+                                <path d="M12 12h.01"></path>
+                            </svg>
+                        </div>
+                        <h3>Fortune Teller</h3>
+                        <p>Random Flemish proverbs</p>
+                        <a href="examples/fortune.html" class="example-link">View Example →</a>
+                    </div>
+                </div>
+                
+                <div class="examples-cta">
+                    <a href="examples/" class="cta-button secondary" data-lang="viewAllExamples">
+                        View All Examples →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="community-section" id="community">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-lang="joinCommunity">Join the Community</h2>
+                    <p class="section-subtitle" data-lang="joinCommunitySubtitle">Connect with other Vlaams Codex developers</p>
+                </div>
+                
+                <div class="community-links">
+                    <a href="https://github.com/brentishere41848/Vlaams-Codex" class="community-card" target="_blank" rel="noopener">
+                        <div class="community-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M9 8L5 12l4 4"></path>
+                                <path d="M15 8l4 4-4 4"></path>
+                                <path d="M11 7l2 10"></path>
+                            </svg>
+                        </div>
+                        <h3>GitHub</h3>
+                        <p data-lang="github">Star the repository, report issues, and contribute code</p>
+                    </a>
+                    
+                    <a href="https://github.com/brentishere41848/Vlaams-Codex/issues" class="community-card" target="_blank" rel="noopener">
+                        <div class="community-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M9 10h6"></path>
+                                <path d="M10 6l-1-2"></path>
+                                <path d="M14 6l1-2"></path>
+                                <path d="M8 12c0-2 1.8-4 4-4s4 2 4 4v2c0 2-1.8 4-4 4s-4-2-4-4v-2z"></path>
+                                <path d="M6 13H4"></path>
+                                <path d="M20 13h-2"></path>
+                                <path d="M7 17l-2 2"></path>
+                                <path d="M17 17l2 2"></path>
+                            </svg>
+                        </div>
+                        <h3>Issue Tracker</h3>
+                        <p data-lang="issueTracker">Report bugs, request features, and discuss improvements</p>
+                    </a>
+                    
+                    <a href="https://github.com/brentishere41848/Vlaams-Codex/pulls" class="community-card" target="_blank" rel="noopener">
+                        <div class="community-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M7 12l2-2 3 3"></path>
+                                <path d="M17 12l-2-2-3 3"></path>
+                                <path d="M4 13l3 3"></path>
+                                <path d="M20 13l-3 3"></path>
+                                <path d="M9 15l3 3 3-3"></path>
+                            </svg>
+                        </div>
+                        <h3>Contributing</h3>
+                        <p data-lang="contributing">Submit pull requests and help improve Vlaams Codex</p>
+                    </a>
+                    
+                    <a href="https://x.com/vlaamscodex" class="community-card" target="_blank" rel="noopener">
+                        <div class="community-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img">
+                                <path d="M6 6l12 12"></path>
+                                <path d="M18 6L6 18"></path>
+                            </svg>
+                        </div>
+                        <h3>X (Twitter)</h3>
+                        <p data-lang="twitter">Follow updates and join the conversation</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="icon.png" alt="Vlaams Codex Logo" class="footer-logo">
+                    <p data-lang="heroDescription">'t Es simpel, 't es plansen, 't es Vlaams!</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="docs/#installation">Installation</a></li>
+                            <li><a href="docs/#language-spec">Language Spec</a></li>
+                            <li><a href="docs/#cli-reference">CLI Reference</a></li>
+                            <li><a href="docs/multi-vlaams.html">Multi-Vlaams</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="examples/">Examples</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex">GitHub</a></li>
+                            <li><a href="https://pypi.org/project/vlaamscodex/">PyPI</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/graphs/contributors">Contributors</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/CONTRIBUTING.md">Contributing Guide</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/CHANGELOG.md">Changelog</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/LICENSE">License</a></li>
+                            <li><a href="https://discord.gg/FrMnEE8pcz">Discord</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Social</h4>
+                        <ul>
+                            <li><a href="https://x.com/vlaamscodex" target="_blank" rel="noopener">X (Twitter)</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex" target="_blank" rel="noopener">GitHub</a></li>
+                            <li><a href="https://pypi.org/project/vlaamscodex/" target="_blank" rel="noopener">PyPI</a></li>
+                            <li><a href="https://www.npmjs.com/package/vlaamscodex" target="_blank" rel="noopener">npm</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 Vlaams Codex. Made with ❤️ in Flanders</p>
+                <p>Released under the <a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/LICENSE">MIT License</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/language-switcher.js"></script>
+</body>
+</html>

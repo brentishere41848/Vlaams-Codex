@@ -374,7 +374,7 @@ QUICK START:
      plats doet hello.plats     (Antwerps)
      plats gaon hello.plats     (Limburgs)
 
-For more info: https://github.com/anubissbe/Vlaamse-Codex
+For more info: https://github.com/brentishere41848/Vlaams-Codex
 """)
     return 0
 
@@ -505,7 +505,7 @@ PLATSKRIPT TAALE:
   plakt                   String concatenatie
   spatie                  Spatie karakter
 
-Mier info: https://github.com/anubissbe/Vlaamse-Codex
+Mier info: https://github.com/brentishere41848/Vlaams-Codex
 
 't Es simpel, 't es plansen, 't es Multi-Vlaams! 🇧🇪
 """)
@@ -572,7 +572,7 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
         prog="plats",
         description="VlaamsCodex - Platskript transpiler - MULTI-VLAAMS! 🇧🇪 (West-Vlaams, Antwerps, Limburgs, Brussels, Genks...)",
-        epilog="Multi-Vlaams help: plats help | plats haalp | plats doet/gaon/jaodoen work too! | https://github.com/anubissbe/Vlaamse-Codex"
+        epilog="Multi-Vlaams help: plats help | plats haalp | plats doet/gaon/jaodoen work too! | https://github.com/brentishere41848/Vlaams-Codex"
     )
     p.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
 

@@ -129,7 +129,7 @@ plats fortune   # of: plats zegt / plats watteda / plats wiste
 
 ## Meer Informatie
 
-- GitHub: https://github.com/anubissbe/Vlaamse-Codex
+- GitHub: https://github.com/brentishere41848/Vlaams-Codex
 - PyPI: https://pypi.org/project/vlaamscodex/
 
 ---

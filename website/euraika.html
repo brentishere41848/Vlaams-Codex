@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Euraika - EU-first AI ecosystem combining AI, security, and compliance in one coherent platform landscape.">
+    <title>Euraika - Partner | Vlaams Codex</title>
+    
+    <link rel="canonical" href="https://vlaamscodex.dev/euraika">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <style>
+        .hero-section {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #1F2937 0%, #2C3E50 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-section p {
+            font-size: 1.25rem;
+            color: #E5E7EB;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .info-section {
+            padding: 5rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .product-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-0.5rem);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .product-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .product-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .product-features li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .philosophy-section {
+            background: var(--bg-secondary);
+            padding: 5rem 0;
+        }
+        
+        .philosophy-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .philosophy-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .philosophy-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .philosophy-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+        
+        .philosophy-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.9375rem;
+        }
+        
+        .team-section {
+            padding: 5rem 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .team-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .team-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .team-role {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+        
+        .partnership-banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .partnership-banner h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .partnership-banner p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .focus-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .focus-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-radius: 2rem;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
+        
+        .focus-tag:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .products-grid,
+            .philosophy-cards,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingScreen" class="loading-screen">
+        <img src="icon.png" alt="Vlaams Codex Logo" class="loading-logo">
+        <p class="loading-text">'t Es simpel, 't es plansen, 't es Vlaams!</p>
+    </div>
+    
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">
+                    <img src="icon.png" alt="Vlaams Codex Logo" class="logo-img">
+                    <span class="logo-text">Vlaams Codex</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <ul class="nav-menu">
+                    <li><a href="/#features">Features</a></li>
+                    <li><a href="/#installation">Install</a></li>
+                    <li><a href="docs/">Docs</a></li>
+                    <li><a href="examples/">Examples</a></li>
+                    <li><a href="/#community">Community</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-right">
+                <div class="language-switcher">
+                    <select id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="vl">🇧🇪 Vlaams</option>
+                    </select>
+                </div>
+                <a href="/#installation" class="cta-button">Get Started</a>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="section-container">
+            <h1>Euraika</h1>
+            <p>EU-first AI ecosystem combining AI, security, and compliance in one coherent platform landscape. Making AI practical, auditable, and compliant with European regulations.</p>
+            <div class="focus-tags">
+                <span class="focus-tag">🤖 AI Platforms</span>
+                <span class="focus-tag">🔒 Security First</span>
+                <span class="focus-tag">✅ Compliance & GRC</span>
+                <span class="focus-tag">🇪🇺 EU-First</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">What is Euraika?</h2>
+                <p class="section-subtitle">A comprehensive technology ecosystem designed to bring practical, compliant AI solutions to European businesses while maintaining auditability and respecting realistic IT environments.</p>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">🛡️</div>
+                    <h3 class="product-name">Aegis</h3>
+                    <p class="product-description">AI-powered compliance command center that translates frameworks into concrete controls, evidence, policies, and audits.</p>
+                    <ul class="product-features">
+                        <li>Risk & control management</li>
+                        <li>Evidence collection & evidence locker</li>
+                        <li>Policy support and improvement</li>
+                        <li>Audit readiness & reporting</li>
+                        <li>Infrastructure integrations via connectors</li>
+                    </ul>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">⚡</div>
+                    <h3 class="product-name">Hermes Portal</h3>
+                    <p class="product-description">GPU-aware model deployment and management portal for model runtimes on Kubernetes with focus on capacity and multi-node environments.</p>
+                    <ul class="product-features">
+                        <li>Model deployment & scaling</li>
+                        <li>GPU-capacity management</li>
+                        <li>Multi-environment support</li>
+                        <li>Kubernetes-native operations</li>
+                    </ul>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🎯</div>
+                    <h3 class="product-name">Hades Core / Cerberos Agents</h3>
+                    <p class="product-description">AI orchestration and agent framework built with evidence and traceability as core principles for reproducible and controllable workflows.</p>
+                    <ul class="product-features">
+                        <li>Agentic workflow execution</li>
+                        <li>Comprehensive logging & traceability</li>
+                        <li>Prompt and output tracking</li>
+                        <li>Reproducible AI operations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Architecture Philosophy</h2>
+                <p class="section-subtitle">Built with enterprise-grade principles for reliability, security, and compliance.</p>
+            </div>
+            
+            <div class="philosophy-cards">
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">🏢</div>
+                    <h3 class="philosophy-title">Multi-Tenant Design</h3>
+                    <p class="philosophy-text">SaaS-ready architecture with proper customer separation and isolation.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">🔌</div>
+                    <h3 class="philosophy-title">Integration Ready</h3>
+                    <p class="philosophy-text">Containerized connectors and collectors for seamless infrastructure integration.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">📋</div>
+                    <h3 class="philosophy-title">Evidence First</h3>
+                    <p class="philosophy-text">Logging, WORM retention, and complete traceability built into every layer.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">🔄</div>
+                    <h3 class="philosophy-title">GitOps / CI/CD</h3>
+                    <p class="philosophy-text">Repeatable deployments with GitOps workflows and automated pipelines.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">☁️</div>
+                    <h3 class="philosophy-title">Kubernetes Native</h3>
+                    <p class="philosophy-text">Built for RKE2/K3s with ArgoCD for modern container orchestration.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">🔐</div>
+                    <h3 class="philosophy-title">Security Integrated</h3>
+                    <p class="philosophy-text">Self-hosted GitLab with quality gates, SAST/DAST, and security scanning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Team</h2>
+                <p class="section-subtitle">The experts behind Euraika's vision and execution.</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">👨‍💼</div>
+                    <h3 class="team-name">Frederic Collard</h3>
+                    <p class="team-role">Compliance & Regulations</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">👩‍💼</div>
+                    <h3 class="team-name">Irene Personne</h3>
+                    <p class="team-role">Marketing & Operations</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">👨‍💻</div>
+                    <h3 class="team-name">Kris Dewalheyns</h3>
+                    <p class="team-role">Finance & Sales</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="partnership-banner">
+        <div class="section-container">
+            <h2>🤝 Partnership with Vlaams Codex</h2>
+            <p>Euraika and Vlaams Codex have partnered to combine community-driven experimentation with enterprise-grade AI and compliance solutions, fostering innovation in the European tech ecosystem.</p>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="icon.png" alt="Vlaams Codex Logo" class="footer-logo">
+                    <p>'t Es simpel, 't es plansen, 't es Vlaams!</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="docs/installation.html">Installation</a></li>
+                            <li><a href="docs/language-spec.html">Language Spec</a></li>
+                            <li><a href="docs/cli-reference.html">CLI Reference</a></li>
+                            <li><a href="docs/multi-vlaams.html">Multi-Vlaams</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="examples/">Examples</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex">GitHub</a></li>
+                            <li><a href="https://pypi.org/project/vlaamscodex/">PyPI</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/graphs/contributors">Contributors</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/CONTRIBUTING.md">Contributing Guide</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/CHANGELOG.md">Changelog</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/LICENSE">License</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Social</h4>
+                        <ul>
+                            <li><a href="https://x.com/vlaamscodex" target="_blank" rel="noopener">X (Twitter)</a></li>
+                            <li><a href="https://github.com/brentishere41848/Vlaams-Codex" target="_blank" rel="noopener">GitHub</a></li>
+                            <li><a href="https://pypi.org/project/vlaamscodex/" target="_blank" rel="noopener">PyPI</a></li>
+                            <li><a href="https://www.npmjs.com/package/vlaamscodex" target="_blank" rel="noopener">npm</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 Vlaams Codex. Made with ❤️ in Flanders</p>
+                <p>Released under the <a href="https://github.com/brentishere41848/Vlaams-Codex/blob/main/LICENSE">MIT License</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/language-switcher.js"></script>
+</body>
+</html>

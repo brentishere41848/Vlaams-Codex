@@ -2,12 +2,12 @@
   "name": "vlaamscodex-platskript",
   "displayName": "Vlaams Codex – Platskript",
   "description": "Syntax highlighting and tools for Platskript (.plats), the Vlaams Codex language.",
-  "version": "0.2.0",
+  "version": "0.2.5",
   "publisher": "PlatsVlaamseCodex",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/brentishere41848/Vlaamse-Codex.git",
+    "url": "https://github.com/brentishere41848/Vlaams-Codex.git",
     "directory": "vscode-extension"
   },
   "engines": {

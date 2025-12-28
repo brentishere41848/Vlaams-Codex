@@ -5,8 +5,8 @@ backend-path = ["."]
 
 [project]
 name = "vlaamscodex"
-version = "0.2.0"
-description = "A transpiler toolchain for Platskript, a parody programming language using Multi-Vlaams dialect keywords that compiles to Python"
+version = "0.2.5"
+description = "A transpiler toolchain for Platskript, a programming language using Multi-Vlaams dialect keywords that compiles to Python"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -22,7 +22,6 @@ keywords = [
     "flemish",
     "dutch",
     "dialect",
-    "parody",
     "programming-language",
     "dsl",
     "python",
@@ -63,12 +62,12 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/anubissbe/Vlaamse-Codex"
-Documentation = "https://github.com/anubissbe/Vlaamse-Codex#readme"
-Repository = "https://github.com/anubissbe/Vlaamse-Codex.git"
-Changelog = "https://github.com/anubissbe/Vlaamse-Codex/blob/main/CHANGELOG.md"
-"Bug Tracker" = "https://github.com/anubissbe/Vlaamse-Codex/issues"
-"Source Code" = "https://github.com/anubissbe/Vlaamse-Codex"
+Homepage = "https://github.com/brentishere41848/Vlaams-Codex"
+Documentation = "https://github.com/brentishere41848/Vlaams-Codex#readme"
+Repository = "https://github.com/brentishere41848/Vlaams-Codex.git"
+Changelog = "https://github.com/brentishere41848/Vlaams-Codex/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/brentishere41848/Vlaams-Codex/issues"
+"Source Code" = "https://github.com/brentishere41848/Vlaams-Codex"
 
 [project.scripts]
 plats = "vlaamscodex.cli:main"

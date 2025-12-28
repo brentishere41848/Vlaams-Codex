@@ -21,8 +21,8 @@ pipx install vlaamscodex
 ### From source (development)
 
 ```bash
-git clone https://github.com/brentishere41848/Vlaamse-Codex.git
-cd Vlaamse-Codex
+git clone https://github.com/brentishere41848/Vlaams-Codex.git
+cd Vlaams-Codex
 pip install -e ".[dev]"
 ```
 
