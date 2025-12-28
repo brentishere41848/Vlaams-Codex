@@ -293,3 +293,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Made with ❤️ in Flanders**
 
 *'t Es simpel, 't es plansen!*
+
+---
+
+<p align="center">
+  <img src="assets/poweredbyeuraika.png" alt="Powered by Euraika" width="200">
+</p>
