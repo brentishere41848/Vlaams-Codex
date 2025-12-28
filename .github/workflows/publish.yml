@@ -36,6 +36,9 @@ jobs:
   build-vscode-extension:
     runs-on: ubuntu-latest
 
+    env:
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -75,10 +78,8 @@ jobs:
           path: vscode-extension/*.vsix
 
       - name: Publish to VS Code Marketplace (optional)
-        if: ${{ secrets.VSCE_PAT != '' }}
+        if: ${{ env.VSCE_PAT != '' }}
         working-directory: vscode-extension
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
           npx --yes @vscode/vsce publish --packagePath ./*.vsix --pat "$VSCE_PAT" --skip-duplicate
 
