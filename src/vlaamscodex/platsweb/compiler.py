@@ -43,10 +43,42 @@ def _parse_attrs(s: str, line: int, col_base: int) -> dict[str, str]:
         key = m.group(1)
         if key not in _ALLOWED_ATTRS:
             raise PlatsWebParseError(f"unknown attribute '{key}'", line, col_base + m.start(1) + 1)
-        val = bytes(m.group(2), "utf-8").decode("unicode_escape")
+        val = _unescape_attr_value(m.group(2))
         attrs[key] = val
         pos = m.end()
     return attrs
+
+
+def _unescape_attr_value(s: str) -> str:
+    # Minimal string unescape that preserves UTF-8 characters:
+    # supports: \\ \" \n \r \t
+    out: list[str] = []
+    i = 0
+    while i < len(s):
+        ch = s[i]
+        if ch != "\\":
+            out.append(ch)
+            i += 1
+            continue
+        i += 1
+        if i >= len(s):
+            out.append("\\")
+            break
+        esc = s[i]
+        i += 1
+        if esc == "n":
+            out.append("\n")
+        elif esc == "r":
+            out.append("\r")
+        elif esc == "t":
+            out.append("\t")
+        elif esc == '"':
+            out.append('"')
+        elif esc == "\\":
+            out.append("\\")
+        else:
+            out.append(esc)
+    return "".join(out)
 
 
 def _merge_class(existing: str | None, add: str | None) -> str | None:

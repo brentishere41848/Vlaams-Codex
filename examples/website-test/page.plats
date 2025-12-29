@@ -1,0 +1,185 @@
+# PlatsWeb test website (single-page)
+
+pagina {
+  blok id:"app" class:"site" {
+    blok class:"topbar" {
+      rij class:"topbar-row" {
+        kop class:"brand" tekst:"VlaamsCodex — PlatsWeb"
+        rij class:"nav" {
+          knop id:"nav-home" class:"navbtn" tekst:"Home"
+          knop id:"nav-features" class:"navbtn" tekst:"Features"
+          knop id:"nav-pricing" class:"navbtn" tekst:"Pricing"
+          knop id:"nav-faq" class:"navbtn" tekst:"FAQ"
+          knop id:"nav-contact" class:"navbtn" tekst:"Contact"
+        }
+        knop id:"toggle-theme" class:"ghost" tekst:"Theme"
+      }
+    }
+
+    blok id:"home" class:"section hero" {
+      kop class:"hero-title" tekst:"Bouw web pages in Plats — simpel en rap"
+      tekst class:"hero-sub" tekst:"Dit is een test-site, volledig uit één .plats bestand. State, events en veilige {{ } } interpolatie zitten erin."
+      rij class:"cta-row" {
+        knop id:"cta-build" class:"cta" tekst:"Build testen"
+        knop id:"cta-dev" class:"cta ghost" tekst:"Dev mode"
+      }
+      tekst class:"status" tekst:"Status: {{ status }}"
+    }
+
+    blok id:"features" class:"section" {
+      kop tekst:"Features (MVP)"
+      tekst tekst:"• pagina/script/stijl in 1 file"
+      tekst tekst:"• state → re-render"
+      tekst tekst:"• events via bij klik / bij input"
+      tekst tekst:"• safe-by-default interpolatie: {{ status }}"
+    }
+
+    blok id:"pricing" class:"section card" {
+      kop tekst:"Pricing (voor de test)"
+      tekst tekst:"€0 — omdat dit een MVP test is."
+      tekst tekst:"Klikkerke teller: {{ teller }}"
+      rij class:"row" {
+        knop id:"inc" class:"cta" tekst:"+1"
+        knop id:"dec" class:"cta ghost" tekst:"-1"
+        knop id:"reset" class:"ghost" tekst:"Reset"
+      }
+    }
+
+    blok id:"faq" class:"section" {
+      kop tekst:"FAQ"
+      tekst tekst:"Q: Is dit een echte website?"
+      tekst tekst:"A: Ja, maar ’t is een test. Geen routing, geen bundler, wel output naar dist."
+      tekst tekst:"Q: Is het veilig?"
+      tekst tekst:"A: Tekst en {{ status }} worden ge-escaped."
+    }
+
+    blok id:"contact" class:"section card" {
+      kop tekst:"Contact (fake form)"
+      tekst tekst:"Typ uw mail en druk op verzenden."
+      rij class:"row" {
+        invoer id:"email" placeholder:"email@voorbeeld.be"
+        knop id:"send" class:"cta" tekst:"Verzenden"
+      }
+      tekst class:"hint" tekst:"{{ formMessage }}"
+    }
+
+    blok class:"footer" {
+      tekst class:"small" tekst:"© {{ jaar }} VlaamsCodex — PlatsWeb test"
+    }
+  }
+}
+
+script {
+  staat status = "klaar"
+  staat teller = 0
+  staat formMessage = "Nog niks verzonden."
+  staat jaar = 2025
+
+  functie scrollTo(sel) {
+    const el = document.querySelector(sel)
+    if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
+  functie setStatus(msg) {
+    staat status = msg
+  }
+
+  functie onBuild() {
+    staat status = "Build: plats build examples/website-test"
+  }
+
+  functie onDev() {
+    staat status = "Dev: plats dev examples/website-test"
+  }
+
+  functie inc() {
+    staat teller = (staat.teller || 0) + 1
+  }
+
+  functie dec() {
+    staat teller = (staat.teller || 0) - 1
+  }
+
+  functie reset() {
+    staat teller = 0
+  }
+
+  functie toggleTheme() {
+    document.body.classList.toggle("dark")
+  }
+
+  functie send() {
+    const mail = lees("#email")
+    if (!mail || !mail.includes("@")) {
+      staat formMessage = "Da ziet er nie uit als ne mail."
+      return
+    }
+    staat formMessage = "Oké, verstuurd. (allee, zogezegd)"
+  }
+
+  bij klik "#nav-home" -> scrollHome()
+  bij klik "#nav-features" -> scrollFeatures()
+  bij klik "#nav-pricing" -> scrollPricing()
+  bij klik "#nav-faq" -> scrollFaq()
+  bij klik "#nav-contact" -> scrollContact()
+
+  functie scrollHome() { scrollTo("#home") }
+  functie scrollFeatures() { scrollTo("#features") }
+  functie scrollPricing() { scrollTo("#pricing") }
+  functie scrollFaq() { scrollTo("#faq") }
+  functie scrollContact() { scrollTo("#contact") }
+
+  bij klik "#cta-build" -> onBuild()
+  bij klik "#cta-dev" -> onDev()
+  bij klik "#toggle-theme" -> toggleTheme()
+
+  bij klik "#inc" -> inc()
+  bij klik "#dec" -> dec()
+  bij klik "#reset" -> reset()
+
+  bij klik "#send" -> send()
+  bij input "#email" -> setStatusFromInput()
+
+  functie setStatusFromInput() {
+    staat status = "Aan ’t typen…"
+  }
+}
+
+stijl {
+  :root { --bg: #ffffff; --fg: #111111; --muted: #5b6472; --card: #ffffff; --border: #e6e8ec; --accent: #111111; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+  body.dark { --bg: #0b0d12; --fg: #f5f7fb; --muted: #a6adba; --card: #111522; --border: #1d2230; --accent: #f5f7fb; }
+
+  .site { max-width: 980px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+  .topbar { position: sticky; top: 0; background: color-mix(in oklab, var(--bg), transparent 10%); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 10; }
+  .topbar-row { display: flex; gap: 1rem; align-items: center; padding: 0.9rem 0; }
+  .brand { font-size: 1.05rem; margin: 0; }
+  .nav { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .section { padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .hero { padding-top: 3rem; }
+  .hero-title { font-size: 2.25rem; margin: 0 0 0.6rem; }
+  .hero-sub { margin: 0 0 1rem; color: var(--muted); max-width: 70ch; }
+  .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1rem 0; }
+  .status { color: var(--muted); }
+
+  .row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  input { min-width: 240px; flex: 1; padding: 0.7rem 0.85rem; border: 1px solid var(--border); border-radius: 10px; background: var(--card); color: var(--fg); }
+  input:focus { outline: 2px solid color-mix(in oklab, var(--accent), transparent 70%); outline-offset: 2px; }
+
+  button { padding: 0.65rem 0.9rem; border-radius: 10px; border: 1px solid var(--accent); background: var(--accent); color: var(--bg); cursor: pointer; font-weight: 600; }
+  button.ghost { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+  button.navbtn { padding: 0.45rem 0.75rem; font-weight: 600; }
+  button:hover { opacity: 0.93; }
+
+  .card { background: color-mix(in oklab, var(--card), transparent 0%); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 2rem 0; }
+  .hint { color: var(--muted); margin-top: 0.75rem; }
+  .footer { padding-top: 2rem; border-bottom: none; }
+  .small { color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 720px) {
+    .hero-title { font-size: 1.75rem; }
+    .topbar-row { align-items: flex-start; flex-direction: column; }
+  }
+}
+
