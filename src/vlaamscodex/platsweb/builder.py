@@ -46,10 +46,15 @@ def build_dir(dir_path: Path, out_dir: Path | None = None, dev: bool = False) ->
 
     out = build_platsweb(src, dev=dev)
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "index.html").write_text(out.index_html, encoding="utf-8")
-    (out_dir / "app.js").write_text(out.app_js, encoding="utf-8")
-    (out_dir / "app.css").write_text(out.app_css, encoding="utf-8")
+    # PlatsWeb output is a single-file page: index.plats (served as text/html).
     (out_dir / "index.plats").write_text(_make_inline_html(out.index_html, out.app_js, out.app_css), encoding="utf-8")
+    # Clean up older outputs if present.
+    for legacy in ("index.html", "app.js", "app.css"):
+        p = out_dir / legacy
+        try:
+            p.unlink()
+        except FileNotFoundError:
+            pass
     return out_dir
 
 
@@ -87,6 +92,8 @@ class _Handler(http.server.SimpleHTTPRequestHandler):
         return super().guess_type(path)
 
     def do_GET(self) -> None:  # noqa: N802
+        if self.path in ("/", "/index.html"):
+            self.path = "/index.plats"
         if self.path.startswith("/__platsweb_events"):
             q = self.sse_hub.add()
             try:
