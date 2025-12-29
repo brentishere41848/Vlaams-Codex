@@ -68,6 +68,16 @@ def build_dir(dir_path: Path, out_dir: Path | None = None, dev: bool = False) ->
         + "\n",
         encoding="utf-8",
     )
+    # Netlify / Cloudflare Pages style headers + root rewrite.
+    (out_dir / "_headers").write_text(
+        "/*.plats\n"
+        "  Content-Type: text/html; charset=utf-8\n"
+        "\n",
+        encoding="utf-8",
+    )
+    (out_dir / "_redirects").write_text("/ /index.plats 200\n", encoding="utf-8")
+    # Apache: treat .plats as HTML.
+    (out_dir / ".htaccess").write_text("AddType text/html .plats\n", encoding="utf-8")
     # Clean up older outputs if present.
     for legacy in ("index.html", "app.js", "app.css"):
         p = out_dir / legacy

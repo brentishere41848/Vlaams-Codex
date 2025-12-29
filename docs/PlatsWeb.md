@@ -29,6 +29,12 @@ Om dit op een echte host als webpagina te laten renderen, moet de server `.plats
 
 Voor Vercel staat dit al klaar in `dist/vercel.json`. Deploy gewoon uw `dist/` folder.
 
+Voor Netlify/Cloudflare Pages staat dit klaar in `dist/_headers` en `dist/_redirects`.
+
+Voor Apache staat dit klaar in `dist/.htaccess`.
+
+Known limitation: GitHub Pages serveert onbekende extensies zoals `.plats` meestal als `text/plain`; daar werkt dit niet zonder een proxy/server die de MIME type kan zetten.
+
 ## SFC structuur
 
 Een PlatsWeb bestand bestaat uit 3 blokken:
