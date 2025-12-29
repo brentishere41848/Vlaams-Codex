@@ -14,6 +14,20 @@ from .compiler import build_platsweb
 from .errors import PlatsWebParseError
 
 
+def _make_inline_html(index_html: str, app_js: str, app_css: str) -> str:
+    # Turn the standard 3-file output into a single HTML document.
+    # This keeps authoring in .plats while still producing a page that can be hosted as a single file.
+    html = index_html.replace(
+        '<link rel="stylesheet" href="./app.css">',
+        "<style>\n" + app_css.rstrip() + "\n</style>",
+    )
+    html = html.replace(
+        '<script src="./app.js" defer></script>',
+        "<script>\n" + app_js.rstrip() + "\n</script>",
+    )
+    return html
+
+
 def _find_entry_plats(dir_path: Path) -> Path:
     preferred = dir_path / "page.plats"
     if preferred.exists():
@@ -35,6 +49,7 @@ def build_dir(dir_path: Path, out_dir: Path | None = None, dev: bool = False) ->
     (out_dir / "index.html").write_text(out.index_html, encoding="utf-8")
     (out_dir / "app.js").write_text(out.app_js, encoding="utf-8")
     (out_dir / "app.css").write_text(out.app_css, encoding="utf-8")
+    (out_dir / "index.plats").write_text(_make_inline_html(out.index_html, out.app_js, out.app_css), encoding="utf-8")
     return out_dir
 
 
@@ -64,6 +79,12 @@ class _SSEHub:
 class _Handler(http.server.SimpleHTTPRequestHandler):
     # set by factory
     sse_hub: _SSEHub
+
+    def guess_type(self, path: str) -> str:
+        # Allow .plats output to be served as HTML so it "works like .html" in dev.
+        if path.endswith(".plats"):
+            return "text/html"
+        return super().guess_type(path)
 
     def do_GET(self) -> None:  # noqa: N802
         if self.path.startswith("/__platsweb_events"):

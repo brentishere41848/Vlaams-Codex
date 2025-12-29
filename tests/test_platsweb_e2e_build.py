@@ -32,12 +32,15 @@ def test_e2e_build_examples_hello_web(tmp_path: Path) -> None:
     assert (dist / "index.html").exists()
     assert (dist / "app.js").exists()
     assert (dist / "app.css").exists()
+    assert (dist / "index.plats").exists()
 
     html = (dist / "index.html").read_text(encoding="utf-8")
     js = (dist / "app.js").read_text(encoding="utf-8")
     css = (dist / "app.css").read_text(encoding="utf-8")
+    plats_html = (dist / "index.plats").read_text(encoding="utf-8")
 
     assert "plats-root" in html
     assert "render" in js
     assert "body" in css
-
+    assert "<style>" in plats_html
+    assert "<script>" in plats_html
