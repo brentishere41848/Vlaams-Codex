@@ -310,13 +310,15 @@ def cmd_dev(path: Path, host: str | None = None, port: int | None = None) -> int
         print("dev expects a directory (example: plats dev examples/hello-web)", file=sys.stderr)
         return 2
     env_port = os.environ.get("PORT")
+    allow_port_fallback = False
     if port is None:
         port = int(env_port) if env_port else 5173
+        allow_port_fallback = env_port is None
     if host is None:
         # If we're on a platform that exposes a PORT env var, default bind-all so it works externally.
         host = "0.0.0.0" if env_port else "127.0.0.1"
     try:
-        return platsweb_dev_dir(path, host=host, port=port)
+        return platsweb_dev_dir(path, host=host, port=port, allow_port_fallback=allow_port_fallback)
     except PlatsWebParseError as e:
         try:
             entry = (path / "page.plats") if (path / "page.plats").exists() else next(path.glob("*.plats"))
@@ -325,6 +327,11 @@ def cmd_dev(path: Path, host: str | None = None, port: int | None = None) -> int
         except Exception:
             print(f"{path}: error: {e.message}", file=sys.stderr)
         return 1
+    except OSError as e:
+        if getattr(e, "errno", None) == 98:
+            print(f"dev server port {port} is already in use. Try: plats dev {path} --port {port + 1}", file=sys.stderr)
+            return 1
+        raise
 
 
 def cmd_show_python(path: Path) -> int:

@@ -6,6 +6,7 @@ import queue
 import socketserver
 import threading
 import time
+import errno
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -98,7 +99,7 @@ class _Handler(http.server.SimpleHTTPRequestHandler):
         return
 
 
-def dev_dir(dir_path: Path, host: str = "127.0.0.1", port: int = 5173) -> int:
+def dev_dir(dir_path: Path, host: str = "127.0.0.1", port: int = 5173, allow_port_fallback: bool = False) -> int:
     out_dir = build_dir(dir_path, dev=True)
     entry = _find_entry_plats(dir_path)
 
@@ -133,15 +134,32 @@ def dev_dir(dir_path: Path, host: str = "127.0.0.1", port: int = 5173) -> int:
     t = threading.Thread(target=watcher, daemon=True)
     t.start()
 
-    with _Server((host, port), handler_factory) as httpd:
-        url = f"http://{host}:{port}/"
+    def _print_url(bound_port: int) -> None:
         if host == "0.0.0.0":
-            print(f"[platsweb] dev server: http://127.0.0.1:{port}/ (bound to 0.0.0.0)")
+            print(f"[platsweb] dev server: http://127.0.0.1:{bound_port}/ (bound to 0.0.0.0)")
         else:
-            print(f"[platsweb] dev server: {url}")
+            print(f"[platsweb] dev server: http://{host}:{bound_port}/")
         print(f"[platsweb] watching: {entry}")
+
+    def _serve(bound_port: int) -> int:
+        with _Server((host, bound_port), handler_factory) as httpd:
+            _print_url(bound_port)
+            try:
+                httpd.serve_forever()
+            except KeyboardInterrupt:
+                return 0
+        return 0
+
+    if not allow_port_fallback:
+        return _serve(port)
+
+    # Port fallback (MVP): if the default port is busy, try the next few ports.
+    for try_port in range(port, port + 20):
         try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            return 0
-    return 0
+            return _serve(try_port)
+        except OSError as e:
+            if e.errno == errno.EADDRINUSE:
+                continue
+            raise
+
+    raise OSError(errno.EADDRINUSE, "No free port found for PlatsWeb dev server")
