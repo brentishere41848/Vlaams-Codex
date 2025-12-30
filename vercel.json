@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/", "destination": "/website/index.html" },
     { "source": "/ai", "destination": "/website/ai/index.html" },
     { "source": "/ai/(.*)", "destination": "/website/ai/$1" },
@@ -15,4 +16,3 @@
     { "source": "/(.*)", "destination": "/website/$1" }
   ]
 }
-
