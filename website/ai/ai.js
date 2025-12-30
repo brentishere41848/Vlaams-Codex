@@ -339,6 +339,8 @@
                         const err = await res.json();
                         const code = err && err.error && err.error.code ? String(err.error.code) : '';
                         msg = (err && err.error && err.error.message) ? err.error.message : msg;
+                        const hint = err && err.error && err.error.hint ? String(err.error.hint) : '';
+                        if (hint) msg = msg + "\n\n" + hint;
                         if (code === 'AI_OFFLINE') {
                             try {
                                 const { baseUrl, model } = getSettings();
@@ -460,6 +462,8 @@
                         const err = await res.json();
                         const code = err && err.error && err.error.code ? String(err.error.code) : '';
                         msg = (err && err.error && err.error.message) ? err.error.message : msg;
+                        const hint = err && err.error && err.error.hint ? String(err.error.hint) : '';
+                        if (hint) msg = msg + "\n\n" + hint;
                         if (code === 'AI_OFFLINE') {
                             try {
                                 const { baseUrl, model } = getSettings();

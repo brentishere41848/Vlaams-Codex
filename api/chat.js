@@ -298,13 +298,28 @@ module.exports = async (req, res) => {
   let out;
   try {
     out = await callModel(norm);
-  } catch {
+  } catch (e) {
     const message = offlineMessage();
+    const baseUrl = process.env.OLLAMA_BASE_URL || null;
+    const model = process.env.OLLAMA_MODEL || null;
+    const isVercel = Boolean(process.env.VERCEL);
+    const hint =
+      "Zet in Vercel env `OLLAMA_BASE_URL` (HTTPS) + `OLLAMA_MODEL` en redeploy. " +
+      "Als ge ngrok gebruikt: die URL verandert als ge de tunnel herstart. " +
+      "En vergeet ni: `ollama.vlaamscodex.be` moet naar uw Ollama host wijzen, ni naar Vercel.";
     res.status(503).json({
       error: {
         code: "AI_OFFLINE",
         message,
-        hint: "Zet in Vercel env `OLLAMA_BASE_URL` (HTTPS) + `OLLAMA_MODEL` en redeploy. Ngrok URL verandert als ge tunnel herstart.",
+        hint,
+        debug: {
+          vercel: isVercel,
+          ollama_base_url: baseUrl,
+          ollama_model: model,
+          err: e && e.message ? String(e.message) : "unknown",
+          status: e && e.status ? e.status : undefined,
+          body: e && e.bodySnippet ? e.bodySnippet : undefined,
+        },
       },
     });
     return;
