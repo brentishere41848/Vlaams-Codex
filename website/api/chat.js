@@ -28,7 +28,7 @@ function injectionRefusalMessage() {
   return "Awel, nee: stop me da foefelen. Zeg ’t gewoon in ’t Vlaams en zonder trukken.";
 }
 function offlineMessage() {
-  return "AI is offline, start uw lokaal model (Ollama).";
+  return "AI is offline. Op ’t domein moogt `OLLAMA_BASE_URL` ni op `localhost` staan: zet in Vercel env `OLLAMA_BASE_URL` + `OLLAMA_MODEL` naar uwe Ollama server.";
 }
 function rateLimitedMessage() {
   return "Rustig, maat. Ge zit aan de limiet. Wacht efkes en probeer opnieuw.";
@@ -183,6 +183,10 @@ async function callModel(messages) {
   const baseUrl = (process.env.OLLAMA_BASE_URL || "http://localhost:11434").replace(/\/+$/, "");
   const model = process.env.OLLAMA_MODEL || "llama3.1";
   const timeoutS = parseFloat(process.env.OLLAMA_TIMEOUT_S || "20");
+
+  if (process.env.VERCEL && (baseUrl.includes("localhost") || baseUrl.includes("127.0.0.1"))) {
+    throw new Error("ollama-localhost-on-vercel");
+  }
 
   const controller = new AbortController();
   const t = setTimeout(() => controller.abort(), Math.max(1, timeoutS) * 1000);

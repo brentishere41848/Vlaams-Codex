@@ -119,6 +119,8 @@ Als ge nog altijd 404 krijgt op `/api/chat`: check da ge Vercel “Root Director
 
 Belangrijk: op Vercel werkt `OLLAMA_BASE_URL=http://localhost:11434` **niet**. Zet `OLLAMA_BASE_URL` naar uw eigen publiek bereikbare Ollama (self-hosted) of gebruik de UI “Instellingen” met een endpoint dat CORS toelaat.
 
+Als ge `503` ziet op `/api/chat`: da wil zeggen dat Vercel uw Ollama ni kan bereiken (meestal omdat `OLLAMA_BASE_URL` nog op `localhost` staat).
+
 ### 2) (Optioneel) Docker Compose (local LLM)
 
 Er staat een optionele `docker-compose.local-llm.yml` klaar (Ollama). Dit is **CPU‑vriendelijk maar traag**, GPU is aanbevolen.

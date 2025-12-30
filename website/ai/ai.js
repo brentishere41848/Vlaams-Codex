@@ -317,7 +317,22 @@
                 if (contentType.includes('application/json')) {
                     try {
                         const err = await res.json();
+                        const code = err && err.error && err.error.code ? String(err.error.code) : '';
                         msg = (err && err.error && err.error.message) ? err.error.message : msg;
+                        if (code === 'AI_OFFLINE') {
+                            try {
+                                const { baseUrl, model } = getSettings();
+                                const out = await callOllamaDirect({ baseUrl, model, messages: state.lastAttempt.snapshot });
+                                assistant.msg.content = out;
+                                await typeIntoMessage(assistant.el, out);
+                                state.lastAttempt = null;
+                                elRetry.style.display = 'none';
+                                setBusy(false);
+                                return;
+                            } catch (_) {
+                                msg = msg + "\n\nTip: op ’t domein moet uw Ollama via HTTPS bereikbaar zijn, en ge zet `OLLAMA_BASE_URL`/`OLLAMA_MODEL` in Vercel env of via Instellingen.";
+                            }
+                        }
                     } catch (_) {}
                 } else if (res.status === 404) {
                     // Fallback: call Ollama directly from the browser.
@@ -411,7 +426,21 @@
                 if (contentType.includes('application/json')) {
                     try {
                         const err = await res.json();
+                        const code = err && err.error && err.error.code ? String(err.error.code) : '';
                         msg = (err && err.error && err.error.message) ? err.error.message : msg;
+                        if (code === 'AI_OFFLINE') {
+                            try {
+                                const { baseUrl, model } = getSettings();
+                                const out = await callOllamaDirect({ baseUrl, model, messages: snapshot });
+                                assistantMsg.content = out;
+                                await typeIntoMessage(assistantEl, out);
+                                state.lastAttempt = null;
+                                setBusy(false);
+                                return;
+                            } catch (_) {
+                                msg = msg + "\n\nTip: op ’t domein moet uw Ollama via HTTPS bereikbaar zijn, en ge zet `OLLAMA_BASE_URL`/`OLLAMA_MODEL` in Vercel env of via Instellingen.";
+                            }
+                        }
                     } catch (_) {}
                 } else if (res.status === 404) {
                     if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
