@@ -114,9 +114,8 @@ Als ge geen lokaal model hebt draaien: ge ziet in de chat **“AI is offline, st
 De site kan op Vercel draaien via:
 - **Zet Vercel “Root Directory” op `website/`**
 - `website/api/chat.js` (serverless `POST /api/chat`)
-- `website/vercel.json` (forceert Node runtime; hoort in dezelfde root directory)
 
-Als ge nog altijd 404 krijgt op `/api/chat`: check da ge Vercel “Root Directory” op `website/` hebt staan en da `website/vercel.json` mee gedeployed is.
+Als ge nog altijd 404 krijgt op `/api/chat`: check da ge Vercel “Root Directory” op `website/` hebt staan, en dat ge effectief deployed als Vercel project (ni via puur “static export”).
 
 Belangrijk: op Vercel werkt `OLLAMA_BASE_URL=http://localhost:11434` **niet**. Zet `OLLAMA_BASE_URL` naar uw eigen publiek bereikbare Ollama (self-hosted) of gebruik de UI “Instellingen” met een endpoint dat CORS toelaat.
 
