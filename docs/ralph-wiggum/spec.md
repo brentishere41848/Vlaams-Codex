@@ -17,7 +17,7 @@ We voegen een kleine **lokale dev server** toe (Python stdlib), die:
 
 ### Server-side guard (vóór model call)
 
-- Parse `messages[]` (OpenAI chat format).
+- Parse `messages[]` (chat messages format).
 - Pak **laatste** `role:"user"` message en run:
   - `detect_user_language(text) -> "nl" | "other"`
   - `detect_prompt_injection(text) -> bool`
