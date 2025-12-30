@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [{ "src": "api/chat.js", "use": "@vercel/node" }],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "^/$", "dest": "/website/index.html" },
+    { "src": "^/ai$", "dest": "/website/ai/index.html" },
+    { "src": "^/docs$", "dest": "/website/docs/index.html" },
+    { "src": "^/playground$", "dest": "/website/playground/index.html" },
+    { "src": "/(.*)", "dest": "/website/$1" }
+  ]
+}

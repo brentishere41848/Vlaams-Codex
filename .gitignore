@@ -12,6 +12,11 @@ dist/
 *.vsix
 vscode-extension/out/
 
+.env
+.env.local
+.env.*
+!.env.example
+
 .DS_Store
 Thumbs.db
 

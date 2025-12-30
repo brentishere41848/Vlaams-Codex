@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plat Vlaams‑Only AI — Vlaams Codex">
+    <title>Plat Vlaams‑Only AI — Vlaams Codex</title>
+
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+
+    <style>
+        .ai-shell {
+            margin-top: 6rem;
+            padding: 0 1.5rem 3rem;
+            max-width: 980px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .ai-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .ai-disclaimer {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0.25rem 0 1rem;
+        }
+
+        .ai-panel {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 65vh;
+        }
+
+        .ai-messages {
+            flex: 1;
+            padding: 1.25rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .msg {
+            max-width: 92%;
+            border-radius: var(--radius-md);
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .msg.user {
+            align-self: flex-end;
+            background: #0B0B0B;
+            color: white;
+            border-color: #0B0B0B;
+        }
+
+        .msg.assistant {
+            align-self: flex-start;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .msg .text {
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .msg pre {
+            margin: 0.75rem 0 0;
+            padding: 0.9rem 1rem;
+            border-radius: var(--radius-md);
+            background: var(--bg-dark);
+            color: #E5E7EB;
+            overflow-x: auto;
+        }
+
+        .ai-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 0.9rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.75rem;
+            background: white;
+        }
+
+        .ai-input {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1rem;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .ai-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .ai-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-btn {
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .ai-btn.primary {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .ai-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .ai-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 720px) {
+            .ai-footer {
+                grid-template-columns: 1fr;
+            }
+            .ai-actions {
+                justify-content: flex-end;
+            }
+            .msg {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">
+                    <img src="../icon.png" alt="Vlaams Codex Logo" class="logo-img">
+                    <span class="logo-text">Vlaams Codex</span>
+                </a>
+            </div>
+            <div class="nav-center">
+                <ul class="nav-menu">
+                    <li><a href="../docs/">Docs</a></li>
+                    <li><a href="../playground/">Playground</a></li>
+                    <li><a href="./">AI</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <a href="../#install" class="cta-button">Installeren</a>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="ai-shell">
+        <div class="ai-header">
+            <div>
+                <div class="ai-title">
+                    <h1 class="section-title" style="margin:0;">Plat Vlaams‑Only AI</h1>
+                    <span class="ai-badge">Plat Vlaams‑Only</span>
+                </div>
+                <p class="ai-disclaimer">’t Is Plat Vlaams of ’t is niks.</p>
+            </div>
+            <div class="ai-actions" style="justify-content:flex-end;">
+                <button class="ai-btn" id="settingsBtn" type="button">Instellingen</button>
+                <button class="ai-btn" id="examplesBtn" type="button">Voorbeelden</button>
+                <button class="ai-btn" id="clearBtn" type="button">Wis</button>
+            </div>
+        </div>
+
+        <section class="ai-panel" id="settingsPanel" style="display:none; margin-bottom: 1rem;">
+            <div class="ai-messages" style="gap: 0.5rem;">
+                <div class="msg assistant" style="max-width:100%;">
+                    <div class="text">
+                        Ollama endpoint (voor als `/api/chat` ni bestaat op uw host). Default is lokaal.
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                    <input id="baseUrlInput" class="ai-input" placeholder="OLLAMA_BASE_URL (bv. http://localhost:11434)" />
+                    <input id="modelInput" class="ai-input" placeholder="OLLAMA_MODEL (bv. llama3.1)" />
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                    <div class="msg assistant" style="max-width:100%; margin:0; display:flex; align-items:center;">
+                        <div class="text">Geen API key nodig.</div>
+                    </div>
+                    <button class="ai-btn primary" id="saveSettingsBtn" type="button">Opslaan</button>
+                </div>
+                <div class="msg assistant" style="max-width:100%;">
+                    <div class="text">
+                        Op een domein: `localhost` werkt enkel als uw Ollama CORS toelaat.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ai-panel" aria-label="Chat">
+            <div class="ai-messages" id="messages"></div>
+            <form class="ai-footer" id="chatForm">
+                <input
+                    id="chatInput"
+                    class="ai-input"
+                    autocomplete="off"
+                    placeholder="Awel, wa wilt ge weten?"
+                    maxlength="8000"
+                />
+                <div class="ai-actions">
+                    <button class="ai-btn" id="retryBtn" type="button" style="display:none;">Probeer opnieuw</button>
+                    <button class="ai-btn primary" id="sendBtn" type="submit">Stuur</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="./ai.js"></script>
+</body>
+</html>

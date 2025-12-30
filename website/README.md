@@ -92,6 +92,43 @@ Then visit: http://localhost:3000
 2. Right-click `index.html`
 3. Select "Open with Live Server"
 
+## 🤖 Plat Vlaams‑Only AI (zonder auth, gratis/local)
+
+De AI‑chat werkt met **Ollama** (gratis/local). Geen betaalde fallback.
+
+### 1) Ollama (aanbevolen)
+
+Start Ollama + zet uw model klaar, bv:
+
+```bash
+ollama serve
+ollama pull llama3.1
+```
+
+Op de AI pagina kunt ge in “Instellingen” het model en endpoint zetten (default `http://localhost:11434`).
+
+Als ge geen lokaal model hebt draaien: ge ziet in de chat **“AI is offline, start uw lokaal model (Ollama).”**
+
+### Vercel (domein-hosting)
+
+De site kan op Vercel draaien via:
+- **Zet Vercel “Root Directory” op `website/`**
+- `website/api/chat.js` (serverless `POST /api/chat`)
+
+Als ge nog altijd 404 krijgt op `/api/chat`: check da ge Vercel “Root Directory” op `website/` hebt staan, en dat ge effectief deployed als Vercel project (ni via puur “static export”).
+
+Belangrijk: op Vercel werkt `OLLAMA_BASE_URL=http://localhost:11434` **niet**. Zet `OLLAMA_BASE_URL` naar uw eigen publiek bereikbare Ollama (self-hosted) of gebruik de UI “Instellingen” met een endpoint dat CORS toelaat.
+
+### 2) (Optioneel) Docker Compose (local LLM)
+
+Er staat een optionele `docker-compose.local-llm.yml` klaar (Ollama). Dit is **CPU‑vriendelijk maar traag**, GPU is aanbevolen.
+
+```bash
+docker compose -f docker-compose.local-llm.yml up -d
+```
+
+Opmerking: ge moet nog een model pullen (zie comments in de compose file) en `OLLAMA_MODEL` juist zetten.
+
 ### Building for Production
 
 The website is already optimized for production. All CSS and JS are minified-ready. If you want to minify further:

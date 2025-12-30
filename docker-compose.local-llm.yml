@@ -1,0 +1,14 @@
+services:
+  # Ollama (gratis/local)
+  #
+  # CPU kan, maar is traag; GPU is aanbevolen.
+  #
+  # Na `docker compose up`:
+  #   - `docker exec -it <container> ollama pull llama3.1`
+  #   - Zet `OLLAMA_BASE_URL=http://localhost:11434` en `OLLAMA_MODEL=llama3.1`
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./local-llm/ollama:/root/.ollama
