@@ -37,6 +37,11 @@ function tooLongMessage() {
   return "Amai, da’s nen epistel. Maak ’t wat korter, of splitst ’t in stukskes.";
 }
 
+function _snippet(s, n = 200) {
+  const t = String(s || "");
+  return t.length <= n ? t : t.slice(0, n) + "…";
+}
+
 const TOKEN_RE = /[a-zà-öø-ÿ]+/gi;
 function stripCodeFences(text) {
   const parts = String(text || "").split("```");
@@ -180,12 +185,16 @@ async function readJson(req) {
 }
 
 async function callModel(messages) {
-  const baseUrl = (process.env.OLLAMA_BASE_URL || "http://localhost:11434").replace(/\/+$/, "");
+  const baseUrlRaw = process.env.OLLAMA_BASE_URL;
+  const baseUrl = (baseUrlRaw || "http://localhost:11434").replace(/\/+$/, "");
   const model = process.env.OLLAMA_MODEL || "llama3.1";
   const timeoutS = parseFloat(process.env.OLLAMA_TIMEOUT_S || "20");
 
   if (process.env.VERCEL && (baseUrl.includes("localhost") || baseUrl.includes("127.0.0.1"))) {
     throw new Error("ollama-localhost-on-vercel");
+  }
+  if (process.env.VERCEL && !baseUrlRaw) {
+    throw new Error("ollama-base-url-missing-on-vercel");
   }
 
   const controller = new AbortController();
@@ -205,11 +214,22 @@ async function callModel(messages) {
       }),
       signal: controller.signal,
     });
-    const data = await res.json().catch(() => null);
-    if (!res.ok) throw new Error("ollama-error");
+    const raw = await res.text();
+    let data = null;
+    try {
+      data = JSON.parse(raw);
+    } catch (_) {}
+    if (!res.ok) {
+      const err = new Error("ollama-error");
+      err.status = res.status;
+      err.bodySnippet = _snippet(raw);
+      throw err;
+    }
     const content = data && data.message && data.message.content;
     if (typeof content === "string" && content.trim()) return content;
-    throw new Error("ollama-empty");
+    const err = new Error("ollama-empty");
+    err.bodySnippet = _snippet(raw);
+    throw err;
   } finally {
     clearTimeout(t);
   }
@@ -285,7 +305,14 @@ module.exports = async (req, res) => {
   try {
     out = await callModel(norm);
   } catch {
-    res.status(503).json({ error: { code: "AI_OFFLINE", message: offlineMessage() } });
+    const message = offlineMessage();
+    res.status(503).json({
+      error: {
+        code: "AI_OFFLINE",
+        message,
+        hint: "Zet in Vercel env `OLLAMA_BASE_URL` (HTTPS) + `OLLAMA_MODEL` en redeploy. Ngrok URL verandert als ge tunnel herstart.",
+      },
+    });
     return;
   }
 
