@@ -49,6 +49,18 @@
         return { baseUrl, model };
     }
 
+    function shouldSkipApiChat() {
+        return localStorage.getItem('api_chat_missing') === '1';
+    }
+
+    function markApiChatMissing() {
+        localStorage.setItem('api_chat_missing', '1');
+    }
+
+    function clearApiChatMissing() {
+        localStorage.removeItem('api_chat_missing');
+    }
+
     function applySettingsToUI() {
         const { baseUrl, model } = getSettings();
         if (elBaseUrl) elBaseUrl.value = baseUrl;
@@ -282,6 +294,17 @@
             }
 
             // Try site backend first.
+            if (shouldSkipApiChat()) {
+                const { baseUrl, model } = getSettings();
+                const out = await callOllamaDirect({ baseUrl, model, messages: state.lastAttempt.snapshot });
+                assistant.msg.content = out;
+                await typeIntoMessage(assistant.el, out);
+                state.lastAttempt = null;
+                elRetry.style.display = 'none';
+                setBusy(false);
+                return;
+            }
+
             const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -298,6 +321,7 @@
                     } catch (_) {}
                 } else if (res.status === 404) {
                     // Fallback: call Ollama directly from the browser.
+                    markApiChatMissing();
                     const { baseUrl, model } = getSettings();
                     const out = await callOllamaDirect({ baseUrl, model, messages: state.lastAttempt.snapshot });
                     assistant.msg.content = out;
@@ -317,6 +341,7 @@
             const content = (data && data.message && data.message.content) ? data.message.content : '';
             assistant.msg.content = content || "’t Is hier stil. Probeer nog ne keer.";
             await typeIntoMessage(assistant.el, assistant.msg.content);
+            clearApiChatMissing();
             state.lastAttempt = null;
             elRetry.style.display = 'none';
         } catch (_) {
