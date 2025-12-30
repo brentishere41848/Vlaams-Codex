@@ -143,13 +143,20 @@ def _tokens(text: str) -> list[str]:
     return [t.lower() for t in _TOKEN_RE.findall(text)]
 
 
+def _strip_code_fences(text: str) -> str:
+    # Allow code blocks to be in any language; we only police normal text.
+    parts = text.split("```")
+    # keep outside fences: 0,2,4,...
+    return " ".join(parts[::2])
+
+
 def detect_user_language(text: str) -> str:
     """
     Very light heuristic: we only need "nl-ish" vs "other".
 
     Bias: block obvious EN/FR/DE even for short inputs.
     """
-    ts = _tokens(text)
+    ts = _tokens(_strip_code_fences(text))
     if not ts:
         return "nl"
 
@@ -175,7 +182,7 @@ def detect_output_language(text: str) -> str:
     """
     Same deal, but slightly stricter: output should not drift into English.
     """
-    ts = _tokens(text)
+    ts = _tokens(_strip_code_fences(text))
     if not ts:
         return "nl"
 
