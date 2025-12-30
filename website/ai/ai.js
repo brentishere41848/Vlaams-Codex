@@ -144,7 +144,11 @@
                         msg = (err && err.error && err.error.message) ? err.error.message : msg;
                     } catch (_) {}
                 } else if (res.status === 404) {
-                    msg = "Da `/api/chat` bestaat hier ni. Start `python -m vlaamscodex.platvlaams_ai.server` en open `http://127.0.0.1:5174/ai/`.";
+                    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+                        msg = "Da `/api/chat` bestaat hier ni. Start `python -m vlaamscodex.platvlaams_ai.server` en open `http://127.0.0.1:5174/ai/`.";
+                    } else {
+                        msg = "Da `/api/chat` bestaat hier ni op ’t domein. Op Vercel moet de serverless function mee deployen (zie `vercel.json` + `api/chat.js`).";
+                    }
                 }
                 assistant.msg.content = msg;
                 await typeIntoMessage(assistant.el, msg);
@@ -196,7 +200,11 @@
                         msg = (err && err.error && err.error.message) ? err.error.message : msg;
                     } catch (_) {}
                 } else if (res.status === 404) {
-                    msg = "Da `/api/chat` bestaat hier ni. Start `python -m vlaamscodex.platvlaams_ai.server` en open `http://127.0.0.1:5174/ai/`.";
+                    if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+                        msg = "Da `/api/chat` bestaat hier ni. Start `python -m vlaamscodex.platvlaams_ai.server` en open `http://127.0.0.1:5174/ai/`.";
+                    } else {
+                        msg = "Da `/api/chat` bestaat hier ni op ’t domein. Op Vercel moet de serverless function mee deployen (zie `vercel.json` + `api/chat.js`).";
+                    }
                 }
                 assistantMsg.content = msg;
                 await typeIntoMessage(assistantEl, msg);

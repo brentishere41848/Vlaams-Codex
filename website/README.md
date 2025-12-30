@@ -118,7 +118,8 @@ Als ge geen lokaal model hebt draaien: ge ziet in de chat **“AI is offline, st
 
 De site kan op Vercel draaien via:
 - `vercel.json` rewrites (root → `website/`)
-- `api/chat.py` (serverless `POST /api/chat`)
+- `api/chat.js` (serverless `POST /api/chat`)
+- (fallback) als uw Vercel “Root Directory” op `website/` staat: `website/api/chat.js`
 
 Als ge nog altijd 404 krijgt op `/api/chat`: check da `vercel.json` mee gedeployed is en da Vercel uw repo root gebruikt (niet “Output Directory = website” als aparte static-only deploy).
 

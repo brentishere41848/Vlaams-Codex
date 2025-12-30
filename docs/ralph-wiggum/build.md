@@ -22,4 +22,4 @@
 - `.env.example` met defaults naar localhost + rate limit + max input.
 - `.gitignore` negeert `.env*` (behalve `.env.example`).
 - Optioneel: `docker-compose.local-llm.yml` (LocalAI skeleton).
-
+- Vercel: `vercel.json` + serverless `api/chat.js` (en fallback `website/api/chat.js` als root directory op `website/` staat).

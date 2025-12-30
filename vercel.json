@@ -1,8 +1,6 @@
 {
   "functions": {
-    "api/chat.py": {
-      "runtime": "python3.12"
-    }
+    "api/chat.js": { "runtime": "nodejs20.x" }
   },
   "routes": [
     { "handle": "filesystem" },
