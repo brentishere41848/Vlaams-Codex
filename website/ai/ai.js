@@ -373,7 +373,7 @@
             messages: [{ role: 'system', content: SYSTEM_PROMPT_PLAT_VLAAMS_ONLY }, ...messages],
         };
 
-        const res = await fetch(`${baseUrl.replace(/\\/+$/, '')}/api/chat`, {
+        const res = await fetch(`${baseUrl.replace(/\/+$/, '')}/api/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
