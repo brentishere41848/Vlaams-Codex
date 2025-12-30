@@ -62,8 +62,9 @@
         if (baseUrlIsInsecureFromHttps(baseUrl)) {
             return "Ge zit op HTTPS, maar uw Ollama endpoint is HTTP. Da wordt geblokkeerd. Pak een HTTPS URL (tunnel/reverse proxy) of gebruik server-side `/api/chat`.";
         }
-        if (baseUrlLooksLocal(baseUrl) && window.location.hostname !== '127.0.0.1' && window.location.hostname !== 'localhost') {
-            return "Ge zit op een domein, maar uw Ollama staat op `localhost`. Da werkt ni van hier. Zet `OLLAMA_BASE_URL` in Vercel env naar uwe publiek bereikbare Ollama (HTTPS).";
+        if (window.location.hostname !== '127.0.0.1' && window.location.hostname !== 'localhost') {
+            // Even with HTTPS tunnels, browsers will usually fail here because Ollama doesn't do CORS by default.
+            return "Ik kan vanuit uw browser geen Ollama aanroepen (CORS). Zet `OLLAMA_BASE_URL` + `OLLAMA_MODEL` in Vercel env zodat `/api/chat` server-side naar Ollama belt.";
         }
         return null;
     }

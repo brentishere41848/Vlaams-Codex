@@ -193,7 +193,11 @@ async function callModel(messages) {
   try {
     const res = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        // Avoid ngrok browser interstitials / blocks.
+        ...(baseUrl.includes("ngrok") ? { "ngrok-skip-browser-warning": "1" } : {}),
+      },
       body: JSON.stringify({
         model,
         stream: false,
