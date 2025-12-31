@@ -30,6 +30,7 @@
 - De AI‑chat pagina (`/ai/`) werkt best via de lokale server `python -m vlaamscodex.platvlaams_ai.server`; GitHub Pages heeft geen `/api/chat`.
 - Op Vercel draait `POST /api/chat` als serverless function (`website/api/chat.js`) en/of via browser-fallback (UI “Instellingen”).
 - `OLLAMA_BASE_URL` kan daar niet naar `localhost` wijzen.
+- De eerste model-call kan traag zijn (model load op CPU) → zet `OLLAMA_TIMEOUT_S` hoger en gebruik `OLLAMA_KEEP_ALIVE` om de model warm te houden.
 
 ## Git
 

@@ -183,7 +183,8 @@ async function callModel(messages) {
   const baseUrlRaw = process.env.OLLAMA_BASE_URL;
   const baseUrl = (baseUrlRaw || "http://localhost:11434").replace(/\/+$/, "");
   const model = process.env.OLLAMA_MODEL || "llama3.1";
-  const timeoutS = parseFloat(process.env.OLLAMA_TIMEOUT_S || "20");
+  const timeoutS = parseFloat(process.env.OLLAMA_TIMEOUT_S || "60");
+  const keepAlive = process.env.OLLAMA_KEEP_ALIVE || "30m";
 
   if (process.env.VERCEL && (baseUrl.includes("localhost") || baseUrl.includes("127.0.0.1"))) {
     throw new Error("ollama-localhost-on-vercel");
@@ -204,6 +205,7 @@ async function callModel(messages) {
       body: JSON.stringify({
         model,
         stream: false,
+        keep_alive: keepAlive,
         messages: [{ role: "system", content: SYSTEM_PROMPT_PLAT_VLAAMS_ONLY }, ...messages],
       }),
       signal: controller.signal,
@@ -303,10 +305,15 @@ module.exports = async (req, res) => {
     const baseUrl = process.env.OLLAMA_BASE_URL || null;
     const model = process.env.OLLAMA_MODEL || null;
     const isVercel = Boolean(process.env.VERCEL);
-    const hint =
-      "Zet in Vercel env `OLLAMA_BASE_URL` (HTTPS) + `OLLAMA_MODEL` en redeploy. " +
-      "Als ge ngrok gebruikt: die URL verandert als ge de tunnel herstart. " +
-      "En vergeet ni: `ollama.vlaamscodex.be` moet naar uw Ollama host wijzen, ni naar Vercel.";
+    const isAbort =
+      (e && e.name === "AbortError") ||
+      (e && e.message && String(e.message).toLowerCase().includes("aborted"));
+    const hint = isAbort
+      ? "Da lijkt nen timeout (model laadt/rekent te traag). Zet `OLLAMA_TIMEOUT_S` hoger (bv. 120) en redeploy. " +
+        "Tip: doe 1 keer nen warm-up call op uwe Ollama host zodat de model al in ’t geheugen zit."
+      : "Zet in Vercel env `OLLAMA_BASE_URL` (HTTPS) + `OLLAMA_MODEL` en redeploy. " +
+        "Als ge ngrok gebruikt: die URL verandert als ge de tunnel herstart. " +
+        "En vergeet ni: `ollama.vlaamscodex.be` moet naar uw Ollama host wijzen, ni naar Vercel.";
     res.status(503).json({
       error: {
         code: "AI_OFFLINE",

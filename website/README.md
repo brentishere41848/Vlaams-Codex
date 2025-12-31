@@ -121,6 +121,10 @@ Belangrijk: op Vercel werkt `OLLAMA_BASE_URL=http://localhost:11434` **niet**. Z
 
 Als ge `503` ziet op `/api/chat`: da wil zeggen dat Vercel uw Ollama ni kan bereiken (meestal omdat `OLLAMA_BASE_URL` nog op `localhost` staat).
 
+Als ge in de `debug.err` iets ziet zoals **“This operation was aborted”**: da’s meestal nen **timeout** (zeker bij de allereerste call als de model nog moet laden). Zet in Vercel env bv:
+- `OLLAMA_TIMEOUT_S=120`
+- `OLLAMA_KEEP_ALIVE=30m`
+
 ### 2) (Optioneel) Docker Compose (local LLM)
 
 Er staat een optionele `docker-compose.local-llm.yml` klaar (Ollama). Dit is **CPU‑vriendelijk maar traag**, GPU is aanbevolen.

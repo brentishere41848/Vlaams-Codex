@@ -1,6 +1,10 @@
 {
   "version": 2,
   "builds": [{ "src": "api/chat.js", "use": "@vercel/node" }],
+  "functions": {
+    "api/chat.js": { "maxDuration": 60 },
+    "website/api/chat.js": { "maxDuration": 60 }
+  },
   "routes": [
     { "handle": "filesystem" },
     { "src": "^/$", "dest": "/website/index.html" },
